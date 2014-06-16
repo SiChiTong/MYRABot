@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<robot name="MYRAbot"
+       xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+       xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+       xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+       xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+       xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+    
+    <!-- Propiedades estructura -->   
+    <xacro:property name="altura_monitor" value="1.15" />
+	<xacro:property name="inclinacion_monitor" value="0.12" />
+	<xacro:property name="inclinacion_soporte_camara" value="-0.12" />
+    
+    <!-- Propiedades estructura -->  
+	<xacro:property name="orientacion_camara" value="0.0"/> <!-- 3.14 para cambiar orientacion camara -->
+	<xacro:property name="inclinacion_camara" value="-0.65"/> <!-- 0.0 para colocar perpendicular a soporte -->
+	<xacro:property name="avance_camara" value="0.03"/> <!-- 0.0 para colocar en el centro del soporte -->
+	
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/roomba.xacro" />		
+	
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/estructura-myrabot.xacro" />
+	
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/kinect.xacro" />	
+	
+	<xacro:include filename="$(find myrabot_arm_model_b)/urdf/brazo.xacro" />	
+
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/webcam.xacro" />
+	
+	<!--xacro:include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" /-->	
+	
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/ultrasonidos.xacro" />		
+	
+	<roomba />
+	
+	<estructura_myrabot parent="base_link">
+		<origin rpy="0 0 1.57" xyz="0 0 0.063"/>	
+	</estructura_myrabot> 
+	
+	<kinect parent="e_base_kinect_link">
+		<origin rpy="0 0 -1.57" xyz="0 -0.045 0.112"/>
+	</kinect>
+	
+	<brazo parent="e_base_brazo_1_link">
+		<origin rpy="0 0 3.1416" xyz="0 -0.1015 0.075"/>
+	</brazo>
+	
+	<webcam parent="e_soporte_3_link">
+		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
+	</webcam>
+	
+	<!--xtion parent="e_soporte_3_link">
+		<origin rpy="0 ${-inclinacion_camara} ${-1.57+orientacion_camara}" xyz="0.0 ${-avance_camara} 0.175"/>	
+	</xtion-->	
+	
+	<ultrasonidos id="1" parent="e_base_2_link" d_centro="0.150">
+		<origin rpy="0 0 1.57" xyz="0 0 ${0.04-0.007}"/>	
+	</ultrasonidos>	
+	
+	<ultrasonidos id="2" parent="e_base_2_link" d_centro="0.150">
+		<origin rpy="0 0 2.36" xyz="0 0 ${0.04-0.007}"/>	
+	</ultrasonidos>	
+
+	<ultrasonidos id="3" parent="e_base_2_link" d_centro="0.150">
+		<origin rpy="0 0 3.14" xyz="0 0 ${0.04-0.007}"/>	
+	</ultrasonidos>	
+	
+	<ultrasonidos id="4" parent="e_base_2_link" d_centro="0.150">
+		<origin rpy="0 0 3.93" xyz="0 0 ${0.04-0.007}"/>
+	</ultrasonidos>
+	
+	<ultrasonidos id="5" parent="e_base_2_link" d_centro="0.150">
+		<origin rpy="0 0 4.71" xyz="0 0 ${0.04-0.007}"/>
+	</ultrasonidos>							
+
+</robot>

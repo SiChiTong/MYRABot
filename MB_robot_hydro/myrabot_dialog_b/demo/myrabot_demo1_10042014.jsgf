@@ -1,0 +1,37 @@
+#JSGF V1.0;
+
+grammar navigation;
+
+
+public <demoCommand> = <name> <command> <please> | <yesno>;
+
+<name>       	= MYRABOT;
+
+<command>    	= <mov_action> <link> <where> | 
+		  <stop> | 
+		  <modeoption> <mode> | 
+		  <link2> <where> <sav_action> |
+		  <grasp_action> <items>;
+
+<mode>       	= MODE; 
+<modeoption> 	= SEMANTIC NAVIGATION | GRASPING | BASIC | MIRROR | FREE ;
+
+<mov_action>   	= MOVE | GO;
+
+<grasp_action> 	= GRASP THE;
+
+<link> 		= TO THE ;
+
+<link2>		= THIS IS THE;
+
+<sav_action>	= SAVE IN YOUR MAP;
+
+<where> 	= KITCHEN  | LIVING ROOM |  BATHROOM | BEDROOM;
+
+<items> 	= CHOCOLATE | COOKIES | CUP | CLEANER | CRACKERS | MILK | BEER;
+
+<stop> 		= STOP | ABORT;
+
+<please> 	= PLEASE;
+
+<yesno> 	= YES | NO;

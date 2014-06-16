@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+<macro name="default_inertia_e">
+	<inertia ixx="0.05" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
+</macro>
+
+<macro name="separador_base" params="id"> 
+<joint name="separador_base_${id}" type="fixed">
+  <parent link="e_base_1_link"/>
+  <child link="e_separador_base_${id}_link"/>
+  <origin xyz="0.0 0.0 0.015" rpy="0 0 0" />
+</joint>
+</macro>
+
+<macro name="e_separador_base" params="id xsim ysim">
+  <link name="e_separador_base_${id}_link">
+    <inertial>
+      <mass value="0.04"/>
+      <origin rpy="0 0 0" xyz="${xsim*0.040} ${ysim*0.105} ${0.120/2}"/>
+      <default_inertia_e />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="${xsim*0.040} ${ysim*0.105} ${0.120/2}"/>
+      <geometry>
+        <cylinder radius="0.0075" length="0.120" />
+      </geometry>
+      <material name="metal">
+		<color rgba="${211/255} ${211/255} ${211/255} 1" />
+	  </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="${xsim*0.040} ${ysim*0.105} ${0.120/2}"/>
+      <geometry>
+        <cylinder radius="0.0075" length="0.120" />
+      </geometry>
+    </collision>
+  </link> 
+</macro> 
+
+<macro name="separador_base_brazo" params="id"> 
+<joint name="separador_base_brazo_${id}" type="fixed">
+  <parent link="e_base_brazo_1_link"/>
+  <child link="e_separador_base_brazo_${id}_link"/>
+  <origin xyz="0.0 ${0.0-0.082} 0.075" rpy="0 0 0" />
+</joint>
+</macro> 
+
+<macro name="e_separador_base_brazo" params="id xsim ysim">
+  <link name="e_separador_base_brazo_${id}_link">
+    <inertial>
+      <mass value="0.002"/>
+      <origin rpy="0 0 0" xyz="${xsim*0.029} ${ysim*0.019} ${0.034/2}"/>
+      <default_inertia_e />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="${xsim*0.029} ${ysim*0.019} ${0.034/2}"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.034" />
+      </geometry>
+      <material name="metal" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="${xsim*0.029} ${ysim*0.019} ${0.034/2}"/>
+      <geometry>
+        <cylinder radius="0.002" length="0.034" />
+      </geometry>
+    </collision>
+  </link> 
+</macro>
+
+<macro name="gazebo_propiedades" params="nombre material">
+<gazebo reference="${nombre}">
+  <material>${material}</material>
+  <mu1>0.5</mu1>
+  <mu2>0.5</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo> 
+</macro>
+
+</robot> 

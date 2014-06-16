@@ -1,0 +1,26 @@
+joint_limits:
+  pinza:
+    has_velocity_limits: true
+    max_velocity: 3
+    has_acceleration_limits: false
+    max_acceleration: 0
+  arti3:
+    has_velocity_limits: true
+    max_velocity: 3
+    has_acceleration_limits: false
+    max_acceleration: 0
+  arti2:
+    has_velocity_limits: true
+    max_velocity: 3
+    has_acceleration_limits: false
+    max_acceleration: 0
+  base_brazo:
+    has_velocity_limits: true
+    max_velocity: 3
+    has_acceleration_limits: false
+    max_acceleration: 0
+  arti1:
+    has_velocity_limits: true
+    max_velocity: 3
+    has_acceleration_limits: false
+    max_acceleration: 0

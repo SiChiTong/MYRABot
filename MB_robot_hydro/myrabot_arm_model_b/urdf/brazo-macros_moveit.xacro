@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <property name="M_PI" value="3.14159"/>
+  <property name="M_SCALE" value="0.001"/>
+  <property name="F10_HEIGHT" value="0.004"/>
+  <property name="F4_HEIGHT" value="0.0525"/>
+  <property name="F3_HEIGHT" value="0.009"/>
+  <property name="AX12_HEIGHT" value="0.0385"/>
+  <property name="AX12_WIDTH" value="0.038"/>
+  <property name="F2_HEIGHT" value="0.0265"/>
+  
+  <material name="white">
+    <color rgba="0.87 0.90 0.87 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  
+<xacro:macro name="default_inertia">
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+</xacro:macro>
+
+<xacro:macro name="default_inertia_servos">
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+</xacro:macro>
+
+<xacro:macro name="default_dynamics">
+      <dynamics fricction="0" damping="0" />
+</xacro:macro> 
+
+  <xacro:macro name="bioloid_F10_fixed" params="parent name color *origin">
+    <joint name="${name}_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F10.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F10.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="finger_fixed" params="parent name color *origin">
+    <joint name="${name}_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0.03075 0.0 0.001 " rpy="0 0 0" />
+        <geometry>
+          <!--mesh filename="package://myrabot_arm_model_b/meshes/finger.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/-->
+          <box size="0.0865 0.038 0.002" />
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0.03075 0.0 0.001 " rpy="0 0 0" />
+        <geometry>
+          <!--mesh filename="package://myrabot_arm_model_b/meshes/finger.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/-->
+          <box size="0.0865 0.038 0.002" />
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="bioloid_F3_fixed" params="parent name color *origin">
+    <joint name="${name}_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F3.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F3.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="dynamixel_AX12_fixed" params="parent name *origin">
+    <joint name="${name}_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.055" />
+        <origin xyz="0 0 0" />
+		<default_inertia_servos/>
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/ax12_box.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/ax12_box.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="bioloid_F3_revolute" params="parent name color llimit ulimit vlimit *origin">
+    <joint name="${name}" type="revolute">
+      <insert_block name="origin" />
+      <axis xyz="0 0 -1"/>
+      <limit effort="1.5" velocity="${vlimit}" lower="${llimit}" upper="${ulimit}" />
+	  <default_dynamics/>      
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F3.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F3.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="bioloid_F2_revolute" params="parent name color llimit ulimit vlimit *origin">
+    <joint name="${name}" type="revolute">
+      <insert_block name="origin" />
+      <axis xyz="0 1 0"/>
+      <limit effort="1.5" velocity="${vlimit}" lower="${llimit}" upper="${ulimit}" />
+	  <default_dynamics/>       
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F2.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F2.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="bioloid_F4_revolute" params="parent name color llimit ulimit vlimit *origin">
+    <joint name="${name}" type="revolute">
+      <insert_block name="origin" />
+      <axis xyz="0 1 0"/>
+      <limit effort="1.5" velocity="${vlimit}" lower="${llimit}" upper="${ulimit}" />
+	  <default_dynamics/>       
+      <parent link="${parent}"/>
+      <child link="${name}_link" />
+    </joint>
+
+    <link name="${name}_link">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" />
+		<default_inertia/>
+      </inertial>
+
+      <visual>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F4.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+
+      <collision>
+        <origin xyz=" 0 0 0 " rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://myrabot_arm_model_b/meshes/F4.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+<xacro:macro name="gazebo_propiedades_link" params="nombre material">
+  <gazebo reference="${nombre}">
+	<mu1>100</mu1>
+	<mu2>100</mu2>
+	<kp>100000000000</kp>
+	<kd>1000000000</kd>
+	<material>${material}</material>
+    <selfCollide>true</selfCollide>
+    <turnGravityOff>false</turnGravityOff> 
+  </gazebo>
+</xacro:macro>
+
+<xacro:macro name="gazebo_propiedades_joint" params="nombre">
+ <gazebo reference="${nombre}">
+    <erp>0.1</erp>
+    <stopKd value="100000000.0" />
+    <stopKp value="100000000.0" />
+    <fudgeFactor value="0.5" />
+ </gazebo>
+</xacro:macro> 
+
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+
+  </plugin>
+</gazebo>
+
+  <transmission name="base_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_brazo"/>
+    <actuator name="base_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="arti1_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arti1"/>
+    <actuator name="arti1_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="arti2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arti2"/>
+    <actuator name="arti3_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="arti3_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arti3"/>
+    <actuator name="arti3_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  
+  <transmission name="pinza_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pinza"/>
+    <actuator name="pinza_motor">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>  
+
+</robot>

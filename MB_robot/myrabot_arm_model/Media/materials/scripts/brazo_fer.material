@@ -1,0 +1,60 @@
+material brazo_fer/WhiteTransparent
+{
+	technique
+	{
+    pass
+    {
+      scene_blend alpha_blend
+      depth_write off
+
+      ambient 1.0 1.0 1.0 1
+      diffuse 1.0 1.0 1.0 1
+
+      texture_unit
+      {
+        colour_op_ex source1 src_current src_current 0 1 0
+        alpha_op_ex source1 src_manual src_current 0.4
+      }
+    }
+	}
+}
+
+material brazo_fer/Black
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 0.000000 0.000000 1.000000
+			diffuse 0.000000 0.000000 0.000000 1.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material brazo_fer/White
+{
+	receive_shadows on
+
+	technique
+	{
+		pass Ambient
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+		pass PointLight
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+
+	}
+}

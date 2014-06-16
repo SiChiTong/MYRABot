@@ -1,0 +1,16 @@
+<package>
+  <description brief="find_object_2d">
+
+     find_object_2d
+
+  </description>
+  <author>Mathieu Labbé</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/find_object_2d</url>
+  <depend package="image_transport"/>
+  <depend package="cv_bridge"/>
+
+</package>
+
+

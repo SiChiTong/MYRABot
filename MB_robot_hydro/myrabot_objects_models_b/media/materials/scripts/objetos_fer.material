@@ -1,0 +1,208 @@
+material objetos_fer/Black
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 0.000000 0.000000 1.000000
+			diffuse 0.000000 0.000000 0.000000 1.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material objetos_fer/White
+{
+	receive_shadows on
+
+	technique
+	{
+		pass Ambient
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+		pass PointLight
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+
+	}
+}
+
+material objetos_fer/Grey
+{
+  receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1.0
+      diffuse 0.5 0.5 0.5 1.0
+      specular 0.8 0.8 0.8 1
+      //shading phong
+		}
+	}
+}
+
+material objetos_fer/Grey0
+{
+ technique
+  {
+    pass
+    {
+      ambient 0.85 0.85 0.85 1.0
+      diffuse 0.85 0.85 0.85 1.0
+      specular 0.0 0.0 0.0 1.0
+      emissive 0.0 0.0 0.0
+      shading phong
+    }
+  }
+}
+
+material objetos_fer/Red
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 1.000000 0.000000 0.000000 1.000000
+			diffuse 1.000000 0.000000 0.000000 1.000000
+			specular 0.200000 0.000000 0.000000 1.000000 
+			emissive 0.000000 0.000000 0.000000 1.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material objetos_fer/Green
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 1.000000 0.000000 1.000000
+			diffuse 0.000000 1.000000 0.000000 1.000000
+			specular 0.000000 0.000000 0.000000 1.000000 
+			emissive 0.000000 0.000000 0.000000 0.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material objetos_fer/LightWood
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture lightwood.png
+      }
+    }
+  }
+}
+
+material objetos_fer/Cola
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				texture coca_cola.png
+				tex_coord_set 0
+				colour_op modulate
+				rotate 180
+				scale 1 1
+			}
+		}
+	}
+}
+
+material objetos_fer/Grahams
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				tex_coord_set 0
+				colour_op modulate
+				cubic_texture golden_grahams_fr.png golden_grahams_bk.png golden_grahams_bk.png golden_grahams_bk.png golden_grahams_bk.png golden_grahams_bk.png separateUV
+			}
+		}
+	}
+}
+
+material objetos_fer/Amstel
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				texture amstel.png
+				tex_coord_set 0
+				colour_op modulate
+				rotate 180
+				scale 1 1
+			}
+		}
+	}
+}

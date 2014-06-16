@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: myrabot_robot_model_b
+    relative_path: urdf/myrabot_moveit.urdf.xacro
+  SRDF:
+    relative_path: config/MYRAbot.srdf
+  CONFIG:
+    generated_timestamp: 1400532916

@@ -1,0 +1,105 @@
+material myrabot_fer/Black
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 0.000000 0.000000 1.000000
+			diffuse 0.000000 0.000000 0.000000 1.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material myrabot_fer/White
+{
+	receive_shadows on
+
+	technique
+	{
+		pass Ambient
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+		pass PointLight
+		{
+			ambient 1.000000 1.000000 1.000000 1.000000
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.8 0.8 0.8 1 20
+      shading phong
+		}
+
+	}
+}
+
+material myrabot_fer/Grey
+{
+  receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1.0
+      diffuse 0.5 0.5 0.5 1.0
+      specular 0.8 0.8 0.8 1
+      //shading phong
+		}
+	}
+}
+
+material myrabot_fer/Red
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 1.000000 0.000000 0.000000 1.000000
+			diffuse 1.000000 0.000000 0.000000 1.000000
+			specular 0.200000 0.000000 0.000000 1.000000 
+			emissive 0.000000 0.000000 0.000000 1.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material myrabot_fer/Green
+{
+	receive_shadows on
+
+	technique
+	{
+		pass
+		{
+			ambient 0.000000 1.000000 0.000000 1.000000
+			diffuse 0.000000 1.000000 0.000000 1.000000
+			specular 0.000000 0.000000 0.000000 1.000000 
+			emissive 0.000000 0.000000 0.000000 0.000000
+      lighting on
+      shading phong
+		}
+	}
+}
+
+material myrabot_fer/LightWood
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture lightwood.png
+      }
+    }
+  }
+}

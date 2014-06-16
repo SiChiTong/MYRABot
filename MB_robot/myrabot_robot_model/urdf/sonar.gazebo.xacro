@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+<!--
+  Copyright (c) 2011, PAL Robotics, S.L.
+  All rights reserved.
+
+  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/3.0/ or send a letter to
+  Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+-->
+
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="range_reem_gazebo" params="name ros_topic update_rate maxRange minRange fov radiation" >
+
+    <gazebo reference="${name}_link">
+      <sensor:ray name="${name}">
+        <displayRays>fan</displayRays>
+
+        <rayCount>5</rayCount>
+        <rangeCount>5</rangeCount>
+        <verticalRayCount>5</verticalRayCount>
+        <verticalRangeCount>5</verticalRangeCount>
+
+        <minAngle>-${fov/2}</minAngle>
+        <verticalMinAngle>-${fov/2}</verticalMinAngle>
+        <maxAngle>${fov/2}</maxAngle>
+        <verticalMaxAngle>${fov/2}</verticalMaxAngle>
+
+        <minRange>${minRange}</minRange>
+        <maxRange>${maxRange}</maxRange>
+        <resRange>0.01</resRange>
+
+        <updateRate>${update_rate}</updateRate>
+
+        <controller:gazebo_ros_sonar name="gazebo_ros_${name}_controller" plugin="libgazebo_ros_sonar.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>${update_rate}</updateRate>
+          <topicName>${ros_topic}</topicName>
+          <frameId>${name}_link</frameId>
+          <radiation>${radiation}</radiation>
+          <fov>${fov}</fov>
+        </controller:gazebo_ros_sonar>
+      </sensor:ray>
+    </gazebo>  
+  </xacro:macro>
+
+</robot>

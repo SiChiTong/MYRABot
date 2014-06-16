@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+
+<robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" xmlns:xacro="http://ros.org/wiki/xacro">
+  
+<xacro:macro name="ultrasonidos" params="id parent d_centro *origin">
+
+  <joint name="ultrasonidos_${id}_joint_fisico" type="fixed">
+    <parent link="${parent}"/>
+    <child link="ultrasonidos_${id}_link_fisico"/>
+    <insert_block name="origin" />
+  </joint>
+       
+  <link name="ultrasonidos_${id}_link_fisico">
+    <inertial>
+      <mass value="0.001"/>
+      <origin rpy="1.57 0 0" xyz="0 -${d_centro} ${0.015/2}"/>
+	  <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.57 0 0" xyz="0 -${d_centro} ${0.015/2}"/>
+      <geometry>
+        <cylinder radius="${0.015/2}" length="0.015" />
+      </geometry>
+      <material name="black">
+		<color rgba="0 0 0 1" />
+	  </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0 0" xyz="0 -${d_centro} ${0.015/2}"/>
+      <geometry>
+        <cylinder radius="${0.015/2}" length="0.015" />
+      </geometry>
+    </collision>
+  </link>
+ 
+<joint name="ultrasonidos_${id}_joint" type="fixed">
+    <parent link="ultrasonidos_${id}_link_fisico"/>
+    <child link="ultrasonidos_${id}_link"/>
+    <origin rpy="0 0 -1.57" xyz="0 -${d_centro+(0.015/2)} ${0.015/2}"/> 
+</joint> 
+ 
+  <link name="ultrasonidos_${id}_link">
+
+  </link> 
+  
+<gazebo reference="ultrasonidos_${id}_link_fisico">
+  <material>myrabot_fer/Black</material>
+  <mu1>0.5</mu1>
+  <mu2>0.5</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff> 
+</gazebo>  
+
+    <gazebo reference="ultrasonidos_${id}_link">
+      <sensor type="ray" name="ultrasonidos_${id}">
+        <always_on>true</always_on>
+        <update_rate>50</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>10</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.28</min_angle>
+              <max_angle>0.28</max_angle>
+            </horizontal>
+            <!--vertical>
+              <samples>${ray_count}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${field_of_view/2}</min_angle>
+              <max_angle> ${field_of_view/2}</max_angle>
+            </vertical-->
+          </scan>
+          <range>
+            <min>0</min>
+            <max>7</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+
+        <plugin name="gazebo_ros_ultrasonidos_${id}_controller" filename="libgazebo_ros_range.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>50</updateRate>
+          <radiation>ultrasound</radiation>
+          <fov>32</fov>
+          <topicName>ultrasonidos_${id}</topicName>
+          <frameId>ultrasonidos_${id}_link</frameId>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+</xacro:macro>
+    
+</robot>     

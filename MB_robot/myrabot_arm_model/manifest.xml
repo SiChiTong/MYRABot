@@ -1,0 +1,26 @@
+<package>
+  <description brief="brazo_description">
+
+     brazo_description
+
+  </description>
+  <author>FeR</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/brazo_description</url>
+  <depend package="urdf"/>
+  <depend package="myrabot_arm_base"/>
+  <depend package="std_msgs"/>    
+  <depend package="sensor_msgs"/>
+  <depend package="tf"/>
+  <depend package="roscpp"/>
+  <depend package="gazebo"/>  
+   
+  <export>
+     <gazebo gazebo_media_path="${prefix}" />
+  </export>  
+
+
+</package>
+
+

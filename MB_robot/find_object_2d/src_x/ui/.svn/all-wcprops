@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/135/trunk/find_object/src/ui
+END
+addObjectDialog.ui
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/74/trunk/find_object/src/ui/addObjectDialog.ui
+END
+aboutDialog.ui
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/109/trunk/find_object/src/ui/aboutDialog.ui
+END
+mainWindow.ui
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/135/trunk/find_object/src/ui/mainWindow.ui
+END

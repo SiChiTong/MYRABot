@@ -1,0 +1,11 @@
+controller_list:
+ - name: brazo_controller
+   action_ns: follow_joint_trajectory
+   type: FollowJointTrajectory
+   default: true
+   joints:
+     - base_brazo
+     - arti1
+     - arti2
+     - arti3
+     

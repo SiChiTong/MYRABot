@@ -1,0 +1,17 @@
+<launch>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find myrabot_robot_model_b)/urdf/myrabot_moveit.urdf.xacro'" />
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"></node>  
+
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
+
+  <node name="joint_states_brazo" pkg="myrabot_arm_base_b" type="joint_states_brazo" /> 
+  
+<group ns="brazo_controller">
+
+  <node name="follow_joint_trajectory" pkg="myrabot_arm_base_b" type="controlador_moveit" output="screen" />
+  
+</group>
+
+</launch>

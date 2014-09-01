@@ -1,6 +1,6 @@
 <launch>
 
-    <!--include file="$(find myrabot_bringup)/launch/myrabot.launch" /--> 
+    <include file="$(find myrabot_bringup)/launch/myrabot.launch" /> 
 
 	<arg name="map_file" default="$(find myrabot_navigation)/mapas/labf6.yaml"/>
 

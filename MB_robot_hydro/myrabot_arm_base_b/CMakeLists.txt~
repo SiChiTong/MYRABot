@@ -120,7 +120,6 @@ add_executable(teleoperador_teclado src/teleoperador_teclado.cpp)
 add_executable(teleoperador_xbox src/teleoperador_xbox.cpp)
 add_executable(teleoperador_xbox360 src/teleoperador_xbox360.cpp)
 add_executable(controlador_moveit src/controlador_moveit.cpp)
-add_executable(pr2_elemplo src/pr2_ejemplo.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -134,7 +133,6 @@ add_executable(pr2_elemplo src/pr2_ejemplo.cpp)
 target_link_libraries(joint_states_brazo
 	${catkin_LIBRARIES}
 )
-
 target_link_libraries(control_v04
 	${catkin_LIBRARIES}
 )
@@ -154,9 +152,6 @@ target_link_libraries(teleoperador_xbox360
     ${catkin_LIBRARIES}
 )
 target_link_libraries(controlador_moveit
-    ${catkin_LIBRARIES}
-)
-target_link_libraries(pr2_elemplo
     ${catkin_LIBRARIES}
 )
 

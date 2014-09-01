@@ -13,17 +13,7 @@
        xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
        xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics">
-
-    <!-- Propiedades estructura -->   
-    <property name="altura_monitor" value="1.15" />
-	<property name="inclinacion_monitor" value="0.12" />
-	<property name="inclinacion_soporte_camara" value="-0.12" />
-    
-    <!-- Propiedades xtion -->  
-	<property name="orientacion_camara" value="0.0"/> <!-- 3.14 para cambiar orientacion camara -->
-	<property name="inclinacion_camara" value="-0.65"/> <!-- 0.0 para colocar paralela a soporte -->
-	<property name="avance_camara" value="0.03"/> <!-- 0.0 para colocar en el centro del soporte -->
-       	
+	
 	<include filename="$(find myrabot_robot_model)/urdf/roomba.xacro" />		
 	
 	<include filename="$(find myrabot_robot_model)/urdf/estructura-myrabot.xacro" />
@@ -34,13 +24,11 @@
 
 	<include filename="$(find myrabot_robot_model)/urdf/webcam.xacro" />
 	
-	<!--include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" /-->	
-	
 	<include filename="$(find myrabot_robot_model)/urdf/ultrasonidos.xacro" />		
 	
 	<roomba />
 	
-	<estructura_myrabot parent="base_link">
+	<estructura_myrabot parent="base_roomba_link">
 		<origin rpy="0 0 1.57" xyz="0 0 0.063"/>	
 	</estructura_myrabot> 
 	
@@ -52,13 +40,9 @@
 		<origin rpy="0 0 3.1416" xyz="0 -0.1015 0.075"/>
 	</brazo>
 	
-	<webcam parent="e_soporte_3_link">
-		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
+	<webcam parent="e_monitor_link">
+		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.185/2}"/>	
 	</webcam>
-	
-	<!--xtion parent="e_soporte_3_link">
-		<origin rpy="0 ${-inclinacion_camara} ${-1.57+orientacion_camara}" xyz="0.0 ${-avance_camara} 0.175"/>	
-	</xtion-->	
 	
 	<ultrasonidos id="1" parent="e_base_2_link" d_centro="0.150">
 		<origin rpy="0 0 1.57" xyz="0 0 ${0.04-0.007}"/>	

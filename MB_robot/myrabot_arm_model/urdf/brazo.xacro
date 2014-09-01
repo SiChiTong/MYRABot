@@ -36,7 +36,7 @@
     </inertial>       
   </link>
 
-  <joint name="base_brazo" type="revolute">
+  <joint name="base" type="revolute">
     <parent link="base_brazo_link"/>
     <child link="hombro_link"/>
     <origin xyz="0 0 0.04" rpy="0 0 0" />
@@ -495,7 +495,7 @@
 <gazebo_propiedades_link nombre="pinza_link_SD" material="brazo_fer/White" /> 
   
 
-<gazebo_propiedades_joint nombre="base_brazo" />
+<gazebo_propiedades_joint nombre="base" />
   
 <gazebo_propiedades_joint nombre="arti1" />
 

@@ -6,7 +6,7 @@
 
   <node pkg="joy" type="joy_node" name="joystick"/>
   
-  <include file="$(find myrabot_roomba)/launch/roomba_bringup.launch" />  
+  <include file="$(find myrabot_bringup)/launch/roomba.launch" />  
   
   <node name="teleoperador_xbox360" pkg="myrabot_arm_base" type="teleoperador_xbox360" output="screen">
 	<!--remap from="cmd_vel" to="myrabot_node/cmd_vel"/-->

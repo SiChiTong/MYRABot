@@ -19,12 +19,12 @@
     <dynamixel_AX12_fixed parent="fixed_link" name="servo_base">
       <origin xyz="0 0 0.019" rpy="${M_PI/2} 0 ${-M_PI/2}"/>
     </dynamixel_AX12_fixed>
-    <bioloid_F3_revolute parent="servo_base_link" name="base_brazo" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+    <bioloid_F3_revolute parent="servo_base_link" name="base" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
       <origin xyz="0 ${AX12_WIDTH/2} 0" rpy="${-M_PI/2} ${-M_PI/2} ${-M_PI}" />
     </bioloid_F3_revolute>
 
     <!-- shoulder lift joint -->
-    <dynamixel_AX12_fixed parent="base_brazo_link" name="servo_arti1">
+    <dynamixel_AX12_fixed parent="base_link" name="servo_arti1">
       <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0" />
     </dynamixel_AX12_fixed>
     <bioloid_F4_revolute parent="servo_arti1_link" name="arti1" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
@@ -166,7 +166,7 @@
 <gazebo_propiedades_link nombre="pinza_fija_dedo_link" material="brazo_fer/WhiteTransparent" />  
   
 
-<gazebo_propiedades_joint nombre="base_brazo" />
+<gazebo_propiedades_joint nombre="base" />
   
 <gazebo_propiedades_joint nombre="arti1" />
 

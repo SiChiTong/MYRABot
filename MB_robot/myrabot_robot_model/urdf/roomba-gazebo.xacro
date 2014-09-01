@@ -60,7 +60,7 @@
       <rear_castor_joint>rear_castor_joint</rear_castor_joint>
       <wheel_separation>.230</wheel_separation>
       <wheel_diameter>0.070</wheel_diameter>
-      <base_geom>base_link</base_geom>
+      <base_geom>base_roomba_link</base_geom>
       <updateRate>40</updateRate>
       <torque>1.0</torque>
     </controller:gazebo_ros_roomba>

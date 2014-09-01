@@ -125,6 +125,15 @@ add_executable(controlador_moveit src/controlador_moveit.cpp)
 ## as an example, message headers may need to be generated before nodes
 #add_dependencies(myrabot_arm_base_b_node myrabot_arm_base_b_generate_messages_cpp)
 
+add_dependencies(joint_states_brazo ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(control_v04 ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(pick ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(place ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(teleoperador_teclado ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(teleoperador_xbox ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(teleoperador_xbox360 ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(controlador_moveit ${${PROJECT_NAME}_EXPORTED_TARGETS})
+
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(myrabot_arm_base_b_node
 #   ${catkin_LIBRARIES}

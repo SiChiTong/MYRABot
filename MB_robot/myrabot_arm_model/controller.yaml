@@ -1,7 +1,7 @@
 base_pos_controller:
   type: robot_mechanism_controllers/JointPositionController
-  joint: base_brazo
-  pid: &base_brazo_pos
+  joint: base
+  pid: &base_pos
     p: 2.0
     i: 0.5
     d: 0.1
@@ -45,8 +45,8 @@ pinza_pos_controller:
 
 base_vel_controller:
   type: robot_mechanism_controllers/JointVelocityController
-  joint: base_brazo
-  pid: &base_brazo_vel
+  joint: base
+  pid: &base_vel
     p: 2.0
     i: 0.5
 

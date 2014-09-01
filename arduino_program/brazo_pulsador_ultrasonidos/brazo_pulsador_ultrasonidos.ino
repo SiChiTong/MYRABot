@@ -1,7 +1,7 @@
 #include <ros.h>
-#include <myrabot_arm_base_b/Servos.h>
-#include <myrabot_arm_base_b/WriteServos.h>
-#include <myrabot_arm_base_b/ReadServos.h>
+#include <myrabot_arm_base/Servos.h>
+#include <myrabot_arm_base/WriteServos.h>
+#include <myrabot_arm_base/ReadServos.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/String.h>
 #include <sensor_msgs/Range.h>
@@ -31,13 +31,13 @@ int brazo_on = 0;
 
 String control;
  
-void mover(const myrabot_arm_base_b::WriteServos& brazo){
+void mover(const myrabot_arm_base::WriteServos& brazo){
  
-  myrabot_arm_base_b::Servos par = brazo.par;
+  myrabot_arm_base::Servos par = brazo.par;
  
-  myrabot_arm_base_b::Servos vel = brazo.velocidad;
+  myrabot_arm_base::Servos vel = brazo.velocidad;
  
-  myrabot_arm_base_b::Servos mover = brazo.posicion;
+  myrabot_arm_base::Servos mover = brazo.posicion;
  
   if (par.base == 0){
     Dynamixel.torqueStatus(1,OFF);
@@ -77,13 +77,13 @@ void mover(const myrabot_arm_base_b::WriteServos& brazo){
  
 }
  
-void pinza(const myrabot_arm_base_b::WriteServos& pinza){
+void pinza(const myrabot_arm_base::WriteServos& pinza){
  
-  myrabot_arm_base_b::Servos par = pinza.par;
+  myrabot_arm_base::Servos par = pinza.par;
  
-  myrabot_arm_base_b::Servos vel = pinza.velocidad;
+  myrabot_arm_base::Servos vel = pinza.velocidad;
  
-  myrabot_arm_base_b::Servos mover = pinza.posicion;
+  myrabot_arm_base::Servos mover = pinza.posicion;
  
   if (par.pinza == 0){
     Dynamixel.torqueStatus(5,OFF);
@@ -122,14 +122,14 @@ float ultrasonidos(const int x, const int y)
   return distance; 
 }
  
-ros::Subscriber<myrabot_arm_base_b::WriteServos> move_sub("move_arm", &mover );
-ros::Subscriber<myrabot_arm_base_b::WriteServos> hand_sub("hand_arm", &pinza );
+ros::Subscriber<myrabot_arm_base::WriteServos> move_sub("move_arm", &mover );
+ros::Subscriber<myrabot_arm_base::WriteServos> hand_sub("hand_arm", &pinza );
 ros::Subscriber<std_msgs::String> arduino_control_sub("arduino_control", &control_arduino ); 
  
 
 std_msgs::Bool pulsador;
 sensor_msgs::Range range_msg;
-myrabot_arm_base_b::ReadServos pec;
+myrabot_arm_base::ReadServos pec;
 
 ros::Publisher pose_pub("pose_arm", &pec);
 ros::Publisher button_pub("button", &pulsador);
@@ -193,7 +193,7 @@ void loop()
 	button_pub.publish(&pulsador);        
         delay(200);        
   }
-  else if (digitalRead(boton_pin) == false || control != "brazo") {
+  else if (digitalRead(boton_pin) == false || (control == "ultrasonidos" && brazo_on == 1) {
         digitalWrite(rele_pin, LOW);
         cont = 0;
         
@@ -205,9 +205,9 @@ void loop()
   if (control == "brazo")
   {
     
-    myrabot_arm_base_b::Servos pos;
-    myrabot_arm_base_b::Servos est;
-    myrabot_arm_base_b::Servos cor; 
+    myrabot_arm_base::Servos pos;
+    myrabot_arm_base::Servos est;
+    myrabot_arm_base::Servos cor; 
    
     pos.base = Dynamixel.readPosition(1);
     pos.arti1 = Dynamixel.readPosition(2);

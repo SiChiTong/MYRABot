@@ -6,7 +6,7 @@
 
 <xacro:macro name="roomba">
 
-  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin, navigation stack depends on this frame -->
+  <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_roomba_link origin, navigation stack depends on this frame -->
 
   <link name="base_footprint">
     <inertial>
@@ -35,7 +35,7 @@
     </collision>
   </link>
 
-  <link name="base_link">
+  <link name="base_roomba_link">
     <inertial>
       <mass value="3.6" />
       <origin xyz="0 0 ${0.063/2}" />
@@ -112,36 +112,36 @@
   <joint name="base_footprint_joint" type="fixed">
     <origin xyz="0 0 0.017" rpy="0 0 0" />        
     <parent link="base_footprint"/>
-    <child link="base_link" />
+    <child link="base_roomba_link" />
   </joint>
 
   <joint name="base_wall_sensor_joint" type="fixed">
     <origin xyz="0.09 -0.120 0.042" rpy="0 0 -1.0" />        
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="wall_sensor_link" />
   </joint>
 
   <joint name="base_left_cliff_sensor_joint" type="fixed">
     <origin xyz="0.07 0.14 0.01" rpy="0 1.57079 0" />        
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="left_cliff_sensor_link" />
   </joint>
 
   <joint name="base_right_cliff_sensor_joint" type="fixed">
     <origin xyz="0.07 -0.14 0.01" rpy="0 1.57079 0" />        
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="right_cliff_sensor_link" />
   </joint>
 
   <joint name="base_leftfront_cliff_sensor_joint" type="fixed">
     <origin xyz="0.15 0.04 0.01" rpy="0 1.57079 0" />        
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="leftfront_cliff_sensor_link" />
   </joint>
 
   <joint name="base_rightfront_cliff_sensor_joint" type="fixed">
     <origin xyz="0.15 -0.04 0.01" rpy="0 1.57079 0" />        
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="rightfront_cliff_sensor_link" />
   </joint>
 
@@ -170,7 +170,7 @@
 
   <joint name="left_wheel_joint" type="continuous">
     <origin xyz="0 0.115 0.017" rpy="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="left_wheel_link"/>
     <axis xyz="0 1 0"/>
   </joint>
@@ -200,7 +200,7 @@
 
   <joint name="right_wheel_joint" type="continuous">
     <origin xyz="0 -0.115 0.017" rpy="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="right_wheel_link"/>
     <axis xyz="0 1 0"/>
   </joint>
@@ -230,7 +230,7 @@
   <!-- fixed because there's no transmission -->
   <joint name="rear_castor_joint" type="fixed">
     <origin xyz="-0.13 0 0.0" rpy="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="rear_wheel_link"/>
     <axis xyz="0 1 0"/>
   </joint>
@@ -261,7 +261,7 @@
   <!-- fixed because there's no transmission -->
   <joint name="front_castor_joint" type="fixed">
     <origin xyz="0.13 0 0.0" rpy="0 0 0"/>
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="front_wheel_link"/>
     <axis xyz="0 1 0"/>
   </joint>
@@ -270,7 +270,7 @@
   <joint name="gyro_joint" type="fixed">
     <axis xyz="0 1 0" />
     <origin xyz="0 0 0.04" rpy="0 0 0" />
-    <parent link="base_link"/>
+    <parent link="base_roomba_link"/>
     <child link="gyro_link"/>
   </joint>
   <link name="gyro_link">
@@ -283,7 +283,7 @@
 
   <joint name="laser_joint" type="fixed">
     <origin xyz="0.065 0 0.57" rpy="0 0 0" />
-    <parent link="base_link" />
+    <parent link="base_roomba_link" />
     <child link="laser" />
   </joint>
 
@@ -303,7 +303,7 @@
     </inertial-->
   </link>
   
-<gaezebo reference="base_link">
+<gaezebo reference="base_roomba_link">
   <material>myrabot_fer/White</material>
 </gaezebo>  
   

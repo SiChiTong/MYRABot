@@ -368,7 +368,7 @@
 <joint name="soporte_1" type="fixed">
   <parent link="e_pilar_link"/>
   <child link="e_soporte_1_link"/>
-  <origin xyz="0 0 ${altura_monitor-(0.708-0.115)-(0.395-0.155)}" rpy="0 0 0" />
+  <origin xyz="0 0 ${altura_monitor-(0.708-0.155)-(0.395-0.155)}" rpy="0 0 0" />
 </joint>
   
 <link name="e_soporte_1_link">
@@ -395,7 +395,7 @@
 <joint name="soporte_2" type="fixed">
   <parent link="e_soporte_1_link"/>
   <child link="e_soporte_2_link"/>
-  <origin xyz="0 0.065 0.61" rpy="-${inclinacion_monitor} 0 0" />
+  <origin xyz="0 0.065 0.61" rpy="${inclinacion_monitor} 0 0" />
 </joint>
   
 <link name="e_soporte_2_link">
@@ -415,33 +415,6 @@
       <origin rpy="0 0 0" xyz="-0.135 -0.2 -0.03"/>
       <geometry>
         <mesh filename="package://myrabot_robot_model/meshes/e_soporte_2.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-  </link>  
-  
- <joint name="soporte_3" type="fixed">
-  <parent link="e_soporte_1_link"/>
-  <child link="e_soporte_3_link"/>
-  <origin xyz="0 0.065 0.61" rpy="${-inclinacion_soporte_camara} 0 0" />
-</joint>
-  
-<link name="e_soporte_3_link">
-    <inertial>
-      <mass value="0.01"/>
-      <origin rpy="0 0 0" xyz="0.0 -0.065 ${0.06/2}"/>
-      <default_inertia_e />
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="-0.135 -0.2 -0.03"/>
-      <geometry>
-        <mesh filename="package://myrabot_robot_model/meshes/e_soporte_3.stl" scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material name="wood" />
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="-0.135 -0.2 -0.03"/>
-      <geometry>
-        <mesh filename="package://myrabot_robot_model/meshes/e_soporte_3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>   
@@ -545,8 +518,6 @@
 <gazebo_propiedades nombre="e_soporte_1_link" material="myrabot_fer/LightWood" />
 
 <gazebo_propiedades nombre="e_soporte_2_link" material="myrabot_fer/LightWood" />
-
-<gazebo_propiedades nombre="e_soporte_3_link" material="myrabot_fer/LightWood" />
 
 <gazebo_propiedades nombre="e_monitor_link" material="myrabot_fer/LightWood" />
 

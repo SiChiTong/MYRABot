@@ -81,7 +81,7 @@
   
   <joint name="servo_arti1_B" type="fixed">
     <parent link="brazo_link"/>
-    <child link="brazo_link_B"/>  
+    <child link="brazo_B_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -90,7 +90,7 @@
   
   <joint name="servo_arti1_D" type="fixed">
     <parent link="brazo_link"/>
-    <child link="brazo_link_SI"/>  
+    <child link="brazo_SI_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -99,7 +99,7 @@
   
   <joint name="servo_arti1_I" type="fixed">
     <parent link="brazo_link"/>
-    <child link="brazo_link_SD"/>  
+    <child link="brazo_SD_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -121,7 +121,7 @@
   
   <joint name="servo_arti2_B" type="fixed">
     <parent link="antebrazo_link"/>
-    <child link="antebrazo_link_B"/>  
+    <child link="antebrazo_B_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -130,7 +130,7 @@
   
   <joint name="servo_arti2_D" type="fixed">
     <parent link="antebrazo_link"/>
-    <child link="antebrazo_link_SI"/>  
+    <child link="antebrazo_SI_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -139,7 +139,7 @@
   
   <joint name="servo_arti2_I" type="fixed">
     <parent link="antebrazo_link"/>
-    <child link="antebrazo_link_SD"/>  
+    <child link="antebrazo_SD_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
@@ -180,12 +180,12 @@
   
   <joint name="servo_arti3_B" type="fixed">
     <parent link="muneca_link"/>
-    <child link="muneca_link_B"/>  
+    <child link="muneca_B_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="muneca_link_B">    
+  <link name="muneca_B_link">    
 	<visual>
       <geometry>
         <box size="0.05325 0.04 0.005"/>
@@ -210,12 +210,12 @@
   
   <joint name="servo_arti3_D" type="fixed">
     <parent link="muneca_link"/>
-    <child link="muneca_link_SI"/>  
+    <child link="muneca_SI_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="muneca_link_SI">    
+  <link name="muneca_SI_link">    
 	<visual>
       <geometry>
         <box size="0.002 0.032 0.0555"/>
@@ -240,12 +240,12 @@
   
   <joint name="servo_arti3_I" type="fixed">
     <parent link="muneca_link"/>
-    <child link="muneca_link_SD"/>  
+    <child link="muneca_SD_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="muneca_link_SD">    
+  <link name="muneca_SD_link">    
 	<visual>
       <geometry>
         <box size="0.002 0.032 0.0555"/>
@@ -270,14 +270,14 @@
   
   <joint name="servo_arti3_P" type="fixed">
     <parent link="muneca_link"/>
-    <child link="muneca_link_P"/>  
+    <child link="muneca_P_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
   <!--pinza izquierda fija-->
   
-  <link name="muneca_link_P">    
+  <link name="muneca_P_link">    
 	<visual>
       <geometry>
         <box size="0.002 0.04 0.092"/>
@@ -302,12 +302,12 @@
   
   <joint name="servo_arti3_PS" type="fixed">
     <parent link="muneca_link"/>
-    <child link="muneca_link_PS"/>  
+    <child link="muneca_PS_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>
   
-  <link name="muneca_link_PS">    
+  <link name="muneca_PS_link">    
 	<visual>
       <geometry>
         <box size="0.002 0.04 0.037"/>
@@ -366,12 +366,12 @@
   
   <joint name="servo_pinza_B" type="fixed">
     <parent link="pinza_link"/>
-    <child link="pinza_link_B"/>  
+    <child link="pinza_B_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="pinza_link_B">    
+  <link name="pinza_B_link">    
 	<visual>
       <geometry>
         <box size="0.002 0.04 0.032"/>
@@ -396,12 +396,12 @@
   
   <joint name="servo_pinza_D" type="fixed">
     <parent link="pinza_link"/>
-    <child link="pinza_link_SI"/>  
+    <child link="pinza_SI_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="pinza_link_SI">    
+  <link name="pinza_SI_link">    
 	<visual>
       <geometry>
         <box size="0.0375 0.002 0.032"/>
@@ -426,12 +426,12 @@
   
   <joint name="servo_pinza_I" type="fixed">
     <parent link="pinza_link"/>
-    <child link="pinza_link_SD"/>  
+    <child link="pinza_SD_link"/>  
     <origin xyz="0 0 0" rpy="0 0 0" />
 	<axis xyz="1 0 0" />    
   </joint>  
   
-  <link name="pinza_link_SD">    
+  <link name="pinza_SD_link">    
 	<visual>
       <geometry>
         <box size="0.0375 0.002 0.032"/>
@@ -459,40 +459,40 @@
 <gazebo_propiedades_link nombre="hombro_link" material="brazo_fer/Black" />
   
 <gazebo_propiedades_link nombre="brazo_link" material="brazo_fer/Black" />  
+
+<gazebo_propiedades_link nombre="brazo_B_link" material="brazo_fer/White" />
+  
+<gazebo_propiedades_link nombre="brazo_SI_link" material="brazo_fer/White" />
+
+<gazebo_propiedades_link nombre="brazo_SD_link" material="brazo_fer/White" />
   
 <gazebo_propiedades_link nombre="antebrazo_link" material="brazo_fer/Black" />
+
+<gazebo_propiedades_link nombre="antebrazo_B_link" material="brazo_fer/White" />   
+
+<gazebo_propiedades_link nombre="antebrazo_SI_link" material="brazo_fer/White" />   
+
+<gazebo_propiedades_link nombre="antebrazo_SD_link" material="brazo_fer/White" />   
    
 <gazebo_propiedades_link nombre="muneca_link" material="brazo_fer/Black" />
   
-<gazebo_propiedades_link nombre="brazo_link_B" material="brazo_fer/White" />   
+<gazebo_propiedades_link nombre="muneca_B_link" material="brazo_fer/White" />   
+
+<gazebo_propiedades_link nombre="muneca_SI_link" material="brazo_fer/White" />   
   
-<gazebo_propiedades_link nombre="brazo_link_SI" material="brazo_fer/White" /> 
+<gazebo_propiedades_link nombre="muneca_SD_link" material="brazo_fer/White" />   
 
-<gazebo_propiedades_link nombre="brazo_link_SD" material="brazo_fer/White" />     
+<gazebo_propiedades_link nombre="muneca_P_link" material="brazo_fer/WhiteTransparent" /> 
 
-<gazebo_propiedades_link nombre="antebrazo_link_B" material="brazo_fer/White" />   
-
-<gazebo_propiedades_link nombre="antebrazo_link_SI" material="brazo_fer/White" />   
-
-<gazebo_propiedades_link nombre="antebrazo_link_SD" material="brazo_fer/White" />   
-  
-<gazebo_propiedades_link nombre="muneca_link_B" material="brazo_fer/White" />   
-
-<gazebo_propiedades_link nombre="muneca_link_SI" material="brazo_fer/White" />   
-  
-<gazebo_propiedades_link nombre="muneca_link_SD" material="brazo_fer/White" />   
-
-<gazebo_propiedades_link nombre="muneca_link_P" material="brazo_fer/WhiteTransparent" /> 
-
-<gazebo_propiedades_link nombre="muneca_link_PS" material="brazo_fer/White" />     
+<gazebo_propiedades_link nombre="muneca_PS_link" material="brazo_fer/White" />     
   
 <gazebo_propiedades_link nombre="pinza_link" material="brazo_fer/WhiteTransparent" />   
  
-<gazebo_propiedades_link nombre="pinza_link_B" material="brazo_fer/White" />   
+<gazebo_propiedades_link nombre="pinza_B_link" material="brazo_fer/White" />   
   
-<gazebo_propiedades_link nombre="pinza_link_SI" material="brazo_fer/White" />   
+<gazebo_propiedades_link nombre="pinza_SI_link" material="brazo_fer/White" />   
    
-<gazebo_propiedades_link nombre="pinza_link_SD" material="brazo_fer/White" /> 
+<gazebo_propiedades_link nombre="pinza_SD_link" material="brazo_fer/White" /> 
   
 
 <gazebo_propiedades_joint nombre="base_brazo" />

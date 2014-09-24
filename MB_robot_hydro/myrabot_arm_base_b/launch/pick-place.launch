@@ -1,0 +1,11 @@
+<launch>
+
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM1" />
+  
+   <node name="joint_states_brazo" pkg="myrabot_arm_base" type="joint_states_brazo" /> 
+  
+  <node name="pick" pkg="myrabot_arm_base" type="pick" />
+  
+  <node name="place" pkg="myrabot_arm_base" type="place" />  
+
+</launch>

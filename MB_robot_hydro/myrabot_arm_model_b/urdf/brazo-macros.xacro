@@ -42,7 +42,7 @@
 </xacro:macro>
 
 <xacro:macro name="base" params="nombre">    
-  <link name="${nombre}_link_B">    
+  <link name="${nombre}_B_link">    
 	<visual>
       <geometry>
         <box size="0.04 0.032 0.020"/>
@@ -67,7 +67,7 @@
 </xacro:macro> 
 
 <xacro:macro name="soporte" params="nombre simetrico lado">    
-  <link name="${nombre}_link_S${lado}">    
+  <link name="${nombre}_S${lado}_link">
 	<visual>
       <geometry>
         <box size="0.002 0.032 0.067"/>
@@ -93,9 +93,9 @@
 
 <xacro:macro name="gazebo_propiedades_link" params="nombre material">
   <gazebo reference="${nombre}">
-	<mu1>100</mu1>
-	<mu2>100</mu2>
-	<kp>100000000000</kp>
+	<mu1>1</mu1>
+	<mu2>1</mu2>
+	<kp>1000000000</kp>
 	<kd>1000000000</kd>
 	<material>${material}</material>
     <selfCollide>true</selfCollide>

@@ -260,9 +260,9 @@
 
 <xacro:macro name="gazebo_propiedades_link" params="nombre material">
   <gazebo reference="${nombre}">
-	<mu1>100</mu1>
-	<mu2>100</mu2>
-	<kp>100000000000</kp>
+	<mu1>1</mu1>
+	<mu2>1</mu2>
+	<kp>1000000000</kp>
 	<kd>1000000000</kd>
 	<material>${material}</material>
     <selfCollide>true</selfCollide>

@@ -24,10 +24,10 @@
     </bioloid_F3_revolute>
 
     <!-- shoulder lift joint -->
-    <dynamixel_AX12_fixed parent="base_brazo_link" name="servo_arti1">
+    <dynamixel_AX12_fixed parent="base_brazo_link" name="servo_arti_1">
       <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0" />
     </dynamixel_AX12_fixed>
-    <bioloid_F4_revolute parent="servo_arti1_link" name="arti1" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+    <bioloid_F4_revolute parent="servo_arti_1_link" name="arti1" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </bioloid_F4_revolute>
     <bioloid_F10_fixed parent="arti1_link" name="arti1_F10_0" color="white">
@@ -44,10 +44,10 @@
     </bioloid_F3_fixed>
 
     <!-- elbow joint -->
-    <dynamixel_AX12_fixed parent="arti1_F3_0_link" name="servo_arti2">
+    <dynamixel_AX12_fixed parent="arti1_F3_0_link" name="servo_arti_2">
       <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0"/>
     </dynamixel_AX12_fixed>
-    <bioloid_F4_revolute parent="servo_arti2_link" name="arti2" color="white" vlimit="3" llimit="-2.63" ulimit="2.63">
+    <bioloid_F4_revolute parent="servo_arti_2_link" name="arti2" color="white" vlimit="3" llimit="-2.63" ulimit="2.63">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </bioloid_F4_revolute>
     <bioloid_F10_fixed parent="arti2_link" name="arti2_F10_0" color="white">
@@ -64,10 +64,10 @@
     </bioloid_F3_fixed>
 
     <!-- wrist joint -->
-    <dynamixel_AX12_fixed parent="arti2_F3_0_link" name="servo_arti3">
+    <dynamixel_AX12_fixed parent="arti2_F3_0_link" name="servo_arti_3">
       <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0"/>
     </dynamixel_AX12_fixed>
-    <bioloid_F2_revolute parent="servo_arti3_link" name="arti3" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+    <bioloid_F2_revolute parent="servo_arti_3_link" name="arti3" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </bioloid_F2_revolute>
     <bioloid_F3_fixed parent="arti3_link" name="arti3_F3_0" color="white">
@@ -125,7 +125,7 @@
 
 <gazebo_propiedades_link nombre="base_brazo_link" material="brazo_fer/White" />
   
-<gazebo_propiedades_link nombre="servo_arti1_link" material="brazo_fer/Black" />  
+<gazebo_propiedades_link nombre="servo_arti_1_link" material="brazo_fer/Black" />  
   
 <gazebo_propiedades_link nombre="arti1_link" material="brazo_fer/White" />
    
@@ -137,7 +137,7 @@
  
 <gazebo_propiedades_link nombre="arti1_F3_0_link" material="brazo_fer/White" />
 
-<gazebo_propiedades_link nombre="servo_arti2_link" material="brazo_fer/Black" />  
+<gazebo_propiedades_link nombre="servo_arti_2_link" material="brazo_fer/Black" />  
   
 <gazebo_propiedades_link nombre="arti2_link" material="brazo_fer/White" />
    
@@ -149,7 +149,7 @@
 
 <gazebo_propiedades_link nombre="arti2_F3_0_link" material="brazo_fer/White" /> 
 
-<gazebo_propiedades_link nombre="servo_arti3_link" material="brazo_fer/Black" />  
+<gazebo_propiedades_link nombre="servo_arti_3_link" material="brazo_fer/Black" />  
   
 <gazebo_propiedades_link nombre="arti3_link" material="brazo_fer/White" />
    

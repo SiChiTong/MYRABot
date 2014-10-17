@@ -120,6 +120,7 @@ add_executable(teleoperador_teclado src/teleoperador_teclado.cpp)
 add_executable(teleoperador_xbox src/teleoperador_xbox.cpp)
 add_executable(teleoperador_xbox360 src/teleoperador_xbox360.cpp)
 add_executable(controlador_moveit src/controlador_moveit.cpp)
+add_executable(paper src/paper.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -133,6 +134,7 @@ add_dependencies(teleoperador_teclado ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(teleoperador_xbox ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(teleoperador_xbox360 ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(controlador_moveit ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(paper ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(myrabot_arm_base_b_node
@@ -161,6 +163,9 @@ target_link_libraries(teleoperador_xbox360
     ${catkin_LIBRARIES}
 )
 target_link_libraries(controlador_moveit
+    ${catkin_LIBRARIES}
+)
+target_link_libraries(paper
     ${catkin_LIBRARIES}
 )
 

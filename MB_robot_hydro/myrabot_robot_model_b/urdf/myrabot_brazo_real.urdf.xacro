@@ -33,9 +33,9 @@
 	
 	<xacro:include filename="$(find myrabot_arm_model_b)/urdf/brazo_real.xacro" />	
 
-	<!--xacro:include filename="$(find myrabot_robot_model_b)/urdf/webcam.xacro" /-->
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/webcam.xacro" />
 	
-	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" />	
+	<!--xacro:include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" /-->	
 	
 	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/ultrasonidos.xacro" />		
 	
@@ -53,13 +53,13 @@
 		<origin rpy="0 0 1.57" xyz="0 -0.1015 0.075"/>
 	</brazo>
 	
-	<!--webcam parent="e_soporte_3_link">
+	<webcam parent="e_soporte_3_link" inclinacion_webcam="0.82">
 		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
-	</webcam-->
+	</webcam>
 	
-	<xtion parent="e_soporte_3_link">
+	<!--xtion parent="e_soporte_3_link">
 		<origin rpy="0 ${-inclinacion_camara} ${-1.57+orientacion_camara}" xyz="0.0 ${-avance_camara} 0.175"/>	
-	</xtion>
+	</xtion-->
 	
 	<ultrasonidos id="1" parent="e_base_2_link" d_centro="0.150">
 		<origin rpy="0 0 1.57" xyz="0 0 ${0.04-0.007}"/>	

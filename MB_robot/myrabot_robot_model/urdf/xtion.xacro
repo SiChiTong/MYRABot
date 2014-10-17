@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
   
   <!-- Xacro properties -->
   <xacro:property name="M_SCALE" value="0.001"/>
@@ -8,7 +8,8 @@
   
   <property name="M_PI" value="3.14159"/>
 
-  <macro name="xtion" params="parent *origin">
+  <!-- Parameterised in part by the values in turtlebot_properties.urdf.xacro -->
+  <xacro:macro name="xtion" params="parent *origin">
 	  
     <joint name="camera_rgb_joint_xtion" type="fixed">
 	  <insert_block name="origin" />
@@ -27,7 +28,7 @@
     </link>
 
     <joint name="camera_rgb_optical_joint_xtion" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <origin xyz="0.0175 0.022 0.021" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
       <parent link="camera_rgb_frame_xtion" />
       <child link="camera_rgb_optical_frame_xtion" />
     </joint>
@@ -43,22 +44,22 @@
     </link>
 
     <joint name="camera_joint_xtion" type="fixed">
-      <origin xyz="0.0175 ${asus_xtion_pro_cam_rel_rgb_py+0.022} 0.021"
+      <origin xyz="0.0175 ${asus_xtion_pro_cam_rel_rgb_py+0.022+0.022+0.027} 0.021"
               rpy="0 0 0"/>
       <parent link="camera_rgb_frame_xtion"/>
       <child link="camera_link_xtion"/>
     </joint>
     <link name="camera_link_xtion">
       <visual>
-        <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
+        <origin xyz="-0.01 -0.049 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
-          <mesh filename="package://myrabot_robot_model/meshes/asus_xtion_pro_live.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://myrabot_robot_model_b/meshes/asus_xtion_pro_live.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="-0.01 0 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
+        <origin xyz="-0.01 -0.049 0" rpy="${-M_PI/2} -${M_PI} ${-M_PI/2}"/>
         <geometry>
-          <mesh filename="package://myrabot_robot_model/meshes/asus_xtion_pro_live.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://myrabot_robot_model_b/meshes/asus_xtion_pro_live.dae" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
         </geometry>
       </collision>
       <inertial>
@@ -101,32 +102,43 @@
           izz="0.0001" />
       </inertial>
     </link>
+
+    <gazebo reference="camera_link_xtion">  
+      <sensor type="depth" name="xtion">
+        <always_on>true</always_on>
+        <update_rate>20.0</update_rate>
+        <camera>
+          <horizontal_fov>${60.0*M_PI/180.0}</horizontal_fov>
+          <image>
+            <format>R8G8B8</format>
+            <width>640</width>
+            <height>480</height>
+          </image>
+          <clip>
+            <near>0.05</near>
+            <far>8.0</far>
+          </clip>
+        </camera>
+        <plugin name="xtion_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <cameraName>xtion</cameraName>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>10</updateRate>
+          <imageTopicName>rgb/image_raw</imageTopicName>
+          <depthImageTopicName>depth/image_raw</depthImageTopicName>
+          <pointCloudTopicName>depth/points</pointCloudTopicName>
+          <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+          <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+          <frameName>camera_depth_optical_frame_xtion</frameName>
+          <baseline>0.1</baseline>
+          <distortion_k1>0.0</distortion_k1>
+          <distortion_k2>0.0</distortion_k2>
+          <distortion_k3>0.0</distortion_k3>
+          <distortion_t1>0.0</distortion_t1>
+          <distortion_t2>0.0</distortion_t2>
+          <pointCloudCutoff>0.4</pointCloudCutoff>
+        </plugin>
+      </sensor>
+    </gazebo>
     
-  <gazebo reference="camera_link_xtion">
-    <sensor:camera name="xtion">
-      <imageFormat>R8G8B8</imageFormat>
-      <imageSize>640 480</imageSize>
-      <hfov>60</hfov>
-      <nearClip>0.05</nearClip>
-      <farClip>5</farClip>
-      <updateRate>20</updateRate>
-      <baseline>0.1</baseline>
-      <controller:gazebo_ros_openni_kinect name="kinect_camera_controller" plugin="libgazebo_ros_openni_kinect.so">
-        <alwaysOn>true</alwaysOn>
-        <updateRate>20</updateRate>
-		<robotNamespace>/</robotNamespace>        
-        <imageTopicName>/xtion/image_raw</imageTopicName>
-        <pointCloudTopicName>/xtion/depth/points</pointCloudTopicName>
-        <cameraInfoTopicName>/xtion/camera_info</cameraInfoTopicName>
-        <frameName>camera_depth_optical_frame_xtion</frameName>
-        <distortion_k1>0.0</distortion_k1>
-        <distortion_k2>0.0</distortion_k2>
-        <distortion_k3>0.0</distortion_k3>
-        <distortion_t1>0.0</distortion_t1>
-        <distortion_t2>0.0</distortion_t2>
-      </controller:gazebo_ros_openni_kinect>
-    </sensor:camera>
-  </gazebo>
-    
-  </macro>
+  </xacro:macro>
 </robot>

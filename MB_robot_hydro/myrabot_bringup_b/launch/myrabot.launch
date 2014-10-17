@@ -1,0 +1,25 @@
+<launch>
+
+  <param name="turtlebot_node/gyro_scale_correction" value="1"/>
+  <param name="turtlebot_node/odom_angular_scale_correction" value="1"/>
+  
+  <param name="turtlebot_node/gyro_measurement_range" value="150"/>
+  
+  <param name="/use_sim_time" value="false"/>
+  
+  <!-- send spring_transmission.urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find myrabot_robot_model_b)/urdf/myrabot_brazo_real.urdf.xacro'" />
+  
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="5.0" />
+    <!--param name="tf_prefix" type="string" value="" /-->
+  </node>
+
+  <include file="$(find myrabot_bringup_b)/launch/roomba.launch" />
+  <include file="$(find myrabot_bringup_b)/launch/kinect.launch" />
+  <include file="$(find myrabot_bringup_b)/launch/xtion.launch" />
+  
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" output="screen" />
+  <node name="joint_states_brazo" pkg="myrabot_arm_base_b" type="joint_states_brazo" />
+  
+</launch>

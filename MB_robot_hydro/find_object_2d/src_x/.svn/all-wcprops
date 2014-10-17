@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/387/trunk/find_object/src
+END
+CameraTcpServer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/383/trunk/find_object/src/CameraTcpServer.cpp
+END
+KeypointItem.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/383/trunk/find_object/src/KeypointItem.h
+END
+Camera.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/383/trunk/find_object/src/Camera.cpp
+END
+AboutDialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/383/trunk/find_object/src/AboutDialog.cpp
+END
+CameraTcpServer.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/383/trunk/find_object/src/CameraTcpServer.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/369/trunk/find_object/src/CMakeLists.txt
+END
+AddObjectDialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/383/trunk/find_object/src/AddObjectDialog.cpp
+END
+QtOpenCV.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/383/trunk/find_object/src/QtOpenCV.cpp
+END
+AboutDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/383/trunk/find_object/src/AboutDialog.h
+END
+Settings.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/385/trunk/find_object/src/Settings.cpp
+END
+ObjSignature.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/383/trunk/find_object/src/ObjSignature.h
+END
+AddObjectDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/383/trunk/find_object/src/AddObjectDialog.h
+END
+JsonWriter.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/383/trunk/find_object/src/JsonWriter.cpp
+END
+Vocabulary.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/383/trunk/find_object/src/Vocabulary.cpp
+END
+FindObject.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/387/trunk/find_object/src/FindObject.cpp
+END
+ParametersToolBox.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/383/trunk/find_object/src/ParametersToolBox.cpp
+END
+RectItem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/383/trunk/find_object/src/RectItem.cpp
+END
+MainWindow.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/385/trunk/find_object/src/MainWindow.cpp
+END
+Vocabulary.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/383/trunk/find_object/src/Vocabulary.h
+END
+TcpServer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/383/trunk/find_object/src/TcpServer.cpp
+END
+resources.qrc
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/110/trunk/find_object/src/resources.qrc
+END
+ObjWidget.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/383/trunk/find_object/src/ObjWidget.cpp
+END
+ParametersToolBox.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/383/trunk/find_object/src/ParametersToolBox.h
+END
+RectItem.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/383/trunk/find_object/src/RectItem.h
+END
+KeypointItem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/383/trunk/find_object/src/KeypointItem.cpp
+END

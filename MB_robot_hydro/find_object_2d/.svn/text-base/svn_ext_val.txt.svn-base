@@ -1,0 +1,2 @@
+src_x -r 387 https://find-object.googlecode.com/svn/trunk/find_object/src
+include_x -r 387 https://find-object.googlecode.com/svn/trunk/find_object/include

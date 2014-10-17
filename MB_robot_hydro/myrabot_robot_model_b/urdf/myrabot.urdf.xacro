@@ -53,7 +53,7 @@
 		<origin rpy="0 0 3.1416" xyz="0 -0.1015 0.075"/>
 	</brazo>
 	
-	<webcam parent="e_soporte_3_link">
+	<webcam parent="e_soporte_3_link" inclinacion_webcam="0.82">
 		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
 	</webcam>
 	

@@ -1,0 +1,14 @@
+<launch>
+ 
+  <node name="camera_node" pkg="uvc_camera" type="uvc_camera_node">
+    <param name="/device" value="/dev/video0"/>
+  </node>
+ 
+  <node name="find_object_2d" pkg="find_object_2d" type="find_object_2d">
+    <remap from="image" to="image_raw"/>
+    <param name="objects_path" value="$(find find_object_2d)/objects" type="str"/>
+  </node>
+  
+  <node name="objects_detected" pkg="find_object_2d" type="objects_detected" />
+ 
+</launch>

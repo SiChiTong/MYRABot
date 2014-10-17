@@ -3,7 +3,7 @@
 <robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" xmlns:xacro="http://ros.org/wiki/xacro">
 	
 
-<xacro:macro name="webcam" params="parent *origin">
+<xacro:macro name="webcam" params="parent inclinacion_webcam *origin">
   
   <joint name="webcam_1" type="fixed">
 	<insert_block name="origin" />
@@ -35,7 +35,7 @@
   </link>
   
   <joint name="webcam_2" type="fixed">
-    <origin xyz="0 ${0.135-0.04-(0.02-0.009)} ${(0.185/2)+0.0045}" rpy="0.82 0 0" />	
+    <origin xyz="0 ${0.135-0.04-(0.02-0.009)} ${(0.185/2)+0.0045}" rpy="${inclinacion_webcam} 0 0" />	
     <parent link="e_webcam_1_link" />
     <child link="e_webcam_2_link" />
   </joint>

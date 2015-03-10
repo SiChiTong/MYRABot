@@ -17,7 +17,7 @@
   
   geometry_msgs::Point punto;
   
-  void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec)   
+  void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec)   
   { 
 
 	ros::NodeHandle n;
@@ -41,13 +41,15 @@
 			
 			::cont = 1;
 			::start = 1;
+			
+			sleep(2);
 		}
 		
 		else if (::cont_1 == 0)
 		{
 			::punto.x = 0;
-			::punto.y = 0;
-			::punto.z = 265;
+			::punto.z = 0;
+			::punto.y = 265;
 			
 			::move = inversa(::punto, ::inclinacion_pinza, p, 0);
 			
@@ -58,44 +60,50 @@
 		else if (::cont_2 == 0)
 		{
 			::punto.x = 260;
-			::punto.y = 0;
-			::punto.z = 50;
+			::punto.z = 0;
+			::punto.y = 50;
 			
 			::move = inversa(::punto, ::inclinacion_pinza, p, 0);
 			
 			move_pub_.publish(::move);
 			
 			::cont_2 = 1;
+			
+			sleep(2);
 		}
 		else if (::cont_3 == 0)
 		{
 			::punto.x = 0;
-			::punto.y = 205;
-			::punto.z = 50;
+			::punto.z = 205;
+			::punto.y = 60;
 			
 			::move = inversa(::punto, ::inclinacion_pinza, p, 0);
 			
 			move_pub_.publish(::move);
 			
 			::cont_3 = 1;
+			
+			sleep(2);
 		}
 		else if (::cont_4 == 0)
 		{
 			::punto.x = -260;
-			::punto.y = 0;
-			::punto.z = 50;
+			::punto.z = 0;
+			::punto.y = 50;
 			
 			::move = inversa(::punto, ::inclinacion_pinza, p, 0);
 			
 			move_pub_.publish(::move);
 			
 			::cont_4 = 1;
+			
+			sleep(2);
 		}
 		else
 		{
 			::punto.x = 0;
-			::punto.y = 0;
-			::punto.z = 265;
+			::punto.z = 0;
+			::punto.y = 265;
 			
 			::move = inversa(::punto, ::inclinacion_pinza, p, 0);
 			
@@ -107,6 +115,8 @@
 			::cont_3 = 0;
 			::cont_4 = 0;
 			::start = 0;
+			
+			sleep(2);
 		}
 	}
 	
@@ -120,7 +130,7 @@
 	ros::NodeHandle n;
 	
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);  
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);  
 
   	
 	ros::Publisher move_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("move_arm", 1);  

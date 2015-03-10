@@ -35,7 +35,7 @@
 
   }
   
-  void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec)   
+  void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec)   
   { 
 	  
 	ros::NodeHandle n;
@@ -88,7 +88,7 @@
 			
 			::pinza.pinza = 470;
 			
-			::pin = control_pinza(::pinza, p, c);
+			::pin = controlPinza(::pinza, p, c);
 				
 			hand_pub_.publish(::pin);
 			
@@ -151,7 +151,7 @@
 	ros::NodeHandle n;
 	
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);  
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);  
   	
   	ros::Subscriber point_sub_= n.subscribe("place_point", 1, punto);  
     	

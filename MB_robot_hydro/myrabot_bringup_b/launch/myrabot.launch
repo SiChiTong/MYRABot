@@ -1,9 +1,9 @@
 <launch>
 
-  <param name="turtlebot_node/gyro_scale_correction" value="1"/>
-  <param name="turtlebot_node/odom_angular_scale_correction" value="1"/>
+  <param name="myrabot_node/gyro_scale_correction" value="1.15"/>
+  <param name="myrabot_node/odom_angular_scale_correction" value="0.8"/>
   
-  <param name="turtlebot_node/gyro_measurement_range" value="150"/>
+  <param name="myrabot_node/gyro_measurement_range" value="300"/>
   
   <param name="/use_sim_time" value="false"/>
   

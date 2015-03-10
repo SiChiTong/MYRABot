@@ -12,8 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   urdf
   sensor_msgs
-  message_generation
   geometry_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions

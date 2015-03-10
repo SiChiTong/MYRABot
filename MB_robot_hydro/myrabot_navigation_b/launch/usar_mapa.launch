@@ -2,7 +2,7 @@
 
     <!--include file="$(find myrabot_bringup)/launch/myrabot.launch" /--> 
 
-	<arg name="map_file" default="$(find myrabot_navigation_b)/mapas/labf6.yaml"/>
+	<arg name="map_file" default="$(find myrabot_navigation_b)/maps/rockin14-1.yaml"/>
 
 	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
@@ -39,6 +39,9 @@
 	  <param name="update_min_a" value="0.2"/>
 	  <param name="odom_frame_id" value="odom"/>
 	  <param name="resample_interval" value="1"/>
+	  <param name="initial_pose_x" value="-3.0"/>
+	  <param name="initial_pose_y" value="6.0"/>
+	  <param name="initial_pose_a" value="-1.7"/>
 	  <!-- Increase tolerance because the computer can get quite busy -->
 	  <param name="transform_tolerance" value="1.0"/>
 	  <param name="recovery_alpha_slow" value="0.0"/>

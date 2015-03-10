@@ -1,0 +1,2 @@
+WriteServos[] trayectoria
+bool		  correcta

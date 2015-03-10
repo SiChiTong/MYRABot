@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<robot name="barra" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	
+<xacro:property name="altura" value="1" />
+<xacro:property name="ancho" value="0.6" />
+<xacro:property name="largo" value="1.8" />
+
+<link name="world" />
+
+<joint name="barra" type="floating">
+  <parent link="world"/>
+  <child link="barra_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</joint>
+
+<link name="barra_link">
+  <visual>
+    <geometry>
+      <box size="${largo} ${ancho} ${altura}" /> 
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <material name="wood">
+		<color rgba="${205/255} ${133/255} ${63/255} 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <geometry>
+      <box size="${largo} ${ancho} ${altura}" />  
+    </geometry>
+  </collision>
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <mass value="50" />
+      <inertia ixx="5" ixy="0.0" ixz="0.0" iyy="5" iyz="0.0" izz="5"/>  
+  </inertial>
+</link>
+
+<gazebo reference="barra_link">
+  <material>Gazebo/Wood</material>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo>
+
+</robot>

@@ -95,26 +95,26 @@
 
 <gazebo reference="lata_link">
   <material>objetos_fer/Amstel</material>
-  <mu1>10</mu1>
-  <mu2>10</mu2>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
   <selfCollide>true</selfCollide>
-  <turnGravityOff>true</turnGravityOff>  
+  <gravity>true</gravity> 
 </gazebo>
 
 <gazebo reference="lata_top_link">
   <material>objetos_fer/Grey0</material>
-  <mu1>10</mu1>
-  <mu2>10</mu2>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
   <selfCollide>true</selfCollide>
-  <turnGravityOff>true</turnGravityOff>  
+  <gravity>true</gravity> 
 </gazebo>
 
 <gazebo reference="lata_bottom_link">
   <material>objetos_fer/Grey0</material>
-  <mu1>10</mu1>
-  <mu2>10</mu2>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
   <selfCollide>true</selfCollide>
-  <turnGravityOff>true</turnGravityOff>  
+  <gravity>true</gravity> 
 </gazebo>
 
 </robot>

@@ -1,0 +1,15 @@
+# Identificator correspond with object number
+switch_id: 3
+
+# Type of manipulation (0: switch_2_positions, 1: slider, 2: button, 3: switch_3_positions)
+switch_type: 1
+
+# Turn on position
+posicion_on_x: -50
+posicion_on_y: -30
+posicion_on_z: -90
+
+# Turm off position
+posicion_off_x: 50
+posicion_off_y: -30
+posicion_off_z: -90

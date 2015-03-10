@@ -36,7 +36,7 @@
 
   }
   
-    myrabot_arm_base_b::WriteServos levantar_acercar(geometry_msgs::Point la)
+    myrabot_arm_base_b::WriteServos levantarAcercar(geometry_msgs::Point la)
   {
   	 	
   	la.x = 0;
@@ -55,7 +55,7 @@
 
   }
   
-  void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec)   
+  void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec)   
   { 
 	  
 	ros::NodeHandle n;
@@ -127,7 +127,7 @@
 			
 					::pinza.pinza = ::pinza.pinza + 20;
 				
-					::pin = control_pinza(::pinza, p, c);
+					::pin = controlPinza(::pinza, p, c);
 				
 					hand_pub_.publish(::pin);
 					
@@ -136,7 +136,7 @@
 				
 					std::cout<<"Agarrado"<<std::endl;
 			
-					::move = levantar_acercar(::punto_0);				
+					::move = levantarAcercar(::punto_0);				
 		
 					move_pub_.publish(::move);
 				
@@ -174,7 +174,7 @@
 	ros::NodeHandle n;
 	
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);  
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);  
   	
   	ros::Subscriber point_sub_= n.subscribe("pick_point", 1, punto);  
 

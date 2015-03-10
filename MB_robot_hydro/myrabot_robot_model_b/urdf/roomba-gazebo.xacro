@@ -4,10 +4,10 @@
 	
 	<xacro:macro name="myrabot_sim_roomba">
 	  
-<gazebo>
+<!--gazebo>
   <plugin name="roomba_controller" filename="libgazebo_ros_create.so">
 	      <alwaysOn>true</alwaysOn>
-	      <node_namespace>myrabot_node</node_namespace>
+	      <node_namespace>/</node_namespace>
 	      <left_wheel_joint>left_wheel_joint</left_wheel_joint>
 	      <right_wheel_joint>right_wheel_joint</right_wheel_joint>
 	      <front_castor_joint>front_castor_joint</front_castor_joint>
@@ -18,51 +18,79 @@
 	      <updateRate>40</updateRate>
 	      <torque>10.0</torque>
   </plugin>
-</gazebo>
+</gazebo-->
 
-<!--gazebo>
+<gazebo>
   <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
     <alwaysOn>true</alwaysOn>
+    <rosDebugLevel>na</rosDebugLevel>
     <updateRate>40</updateRate>
-    <leftJoint>left_wheel_joint</leftJoint>
-    <rightJoint>right_wheel_joint</rightJoint>
+    <leftJoint>right_wheel_joint</leftJoint>
+    <rightJoint>left_wheel_joint</rightJoint>
     <wheelSeparation>0.23</wheelSeparation>
     <wheelDiameter>0.07</wheelDiameter>
-    <torque>20</torque>
+    <publishWheelTF>false</publishWheelTF>
+    <wheelAcceleration>0</wheelAcceleration>
+    <wheelTorque>5</wheelTorque>
     <commandTopic>cmd_vel</commandTopic>
+    <odometrySource>world</odometrySource>
     <odometryTopic>odom</odometryTopic>
     <odometryFrame>odom</odometryFrame>
     <robotBaseFrame>base_footprint</robotBaseFrame>
+    <publishWheelJointState>true</publishWheelJointState>
+    <publishTf>1</publishTf>
   </plugin>
-</gazebo-->
+</gazebo>
+ 
+    <transmission name="right_wheel_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="right_wheel_joint">
+      </joint>
+      <actuator name="right_wheel_joint_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>250</mechanicalReduction>
+      </actuator>
+    </transmission>
+    
+    <transmission name="left_wheel_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="left_wheel_joint">
+      </joint>
+      <actuator name="left_wheel_joint_motor">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>250</mechanicalReduction>
+      </actuator>
+    </transmission>
  
     <gazebo reference="left_wheel_link">
       <mu1 value="100"/>
       <mu2 value="100"/>
-      <kp value="100000000.0"/>
-      <kd value="10000.0"/>
-      <!--fdir1 value="0.1 0 0"/-->
+      <kp value="1000000.0"/>
+      <kd value="1.0"/>
+      <!--fdir1 value="0 1 0"/-->
     </gazebo>
   
     <gazebo reference="right_wheel_link">
       <mu1 value="100"/>
       <mu2 value="100"/>
-      <kp value="100000000.0"/>
-      <kd value="10000.0"/>
-      <!--fdir1 value="0.1 0 0"/-->
+      <kp value="1000000.0"/>
+      <kd value="1.0"/>
+      <!--fdir1 value="0 1 0"/-->
     </gazebo>
     <gazebo reference="rear_wheel_link">
       <mu1 value="0"/>
       <mu2 value="0"/>
-      <kp value="100000000.0"/>
-      <kd value="10000.0"/>
+      <kp value="1000000.0"/>
+      <kd value="1.0"/>
+      <!--fdir1 value="0 1 0"/-->
     </gazebo>
   
     <gazebo reference="front_wheel_link">
       <mu1 value="0"/>
       <mu2 value="0"/>
-      <kp value="100000000.0"/>
-      <kd value="10000.0"/>
+      <kp value="1000000.0"/>
+      <kd value="1.0"/>
+      <!--fdir1 value="0 1 0"/-->
     </gazebo>
     
 	</xacro:macro>

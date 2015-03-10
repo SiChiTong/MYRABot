@@ -12,6 +12,10 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   roscpp
   std_msgs
+  tf
+  nav_msgs
+  sensor_msgs
+  image_transport
   message_generation
 )
 
@@ -55,6 +59,8 @@ add_message_files(
    Servos.msg
    ReadServos.msg
    WriteServos.msg
+   WriteServosTrajectory.msg
+   SwitchesSecuence.msg 
 )
 
 ## Generate services in the 'srv' folder
@@ -71,7 +77,7 @@ add_message_files(
 #   Action2.action
 # )
 
-generate_messages()
+generate_messages(DEPENDENCIES)
 
 ## Generate added messages and services with any dependencies listed here
 #generate_messages(
@@ -121,6 +127,10 @@ add_executable(teleoperador_xbox src/teleoperador_xbox.cpp)
 add_executable(teleoperador_xbox360 src/teleoperador_xbox360.cpp)
 add_executable(controlador_moveit src/controlador_moveit.cpp)
 add_executable(paper src/paper.cpp)
+add_executable(interruptores src/interruptores.cpp)
+add_executable(punto src/punto.cpp)
+add_executable(detecta_color src/detecta_color.cpp)
+add_executable(histograma src/histograma.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
@@ -135,6 +145,10 @@ add_dependencies(teleoperador_xbox ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(teleoperador_xbox360 ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(controlador_moveit ${${PROJECT_NAME}_EXPORTED_TARGETS})
 add_dependencies(paper ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(interruptores ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(punto ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(detecta_color ${${PROJECT_NAME}_EXPORTED_TARGETS})
+add_dependencies(histograma ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(myrabot_arm_base_b_node
@@ -166,6 +180,22 @@ target_link_libraries(controlador_moveit
     ${catkin_LIBRARIES}
 )
 target_link_libraries(paper
+    ${catkin_LIBRARIES}
+)
+
+target_link_libraries(interruptores
+    ${catkin_LIBRARIES}
+)
+
+target_link_libraries(punto
+    ${catkin_LIBRARIES}
+)
+
+target_link_libraries(detecta_color
+    ${catkin_LIBRARIES}
+)
+
+target_link_libraries(histograma
     ${catkin_LIBRARIES}
 )
 

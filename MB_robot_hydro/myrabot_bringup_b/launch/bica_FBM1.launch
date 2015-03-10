@@ -1,0 +1,29 @@
+<launch>
+        <param name="/camera/driver/data_skip" value="2" />
+	<node name="bica" pkg="bica" type="bica" output="screen">
+		 <param name="ipcamera" type="bool" value="false"/>
+		 <param name="ipcameragui" type="bool" value="false"/>
+		 <param name="yellow_hmin" type="int" value="61"/>
+		 <param name="yellow_hmax" type="int" value="106"/>
+		 <param name="yellow_smin" type="int" value="107"/>
+		 <param name="yellow_smax" type="int" value="255"/>
+		 <param name="white_hmin" type="int" value="0"/>
+		 <param name="white_hmax" type="int" value="360"/>
+		 <param name="white_smin" type="int" value="0"/>
+		 <param name="white_smax" type="int" value="46"/>
+		 <param name="init_component" value="ObjectDetectorRelative"/>
+	</node> 
+	
+<!-- Factory-calibrated depth registration -->
+  		 <arg name="depth_registration"              default="true"/>
+	
+	<include file="$(find openni_launch)/launch/openni.launch">
+    		<arg name="depth_registration"              value="$(arg depth_registration)"/>
+        </include>
+
+	<include file="$(find find_object_2d)/launch/find_object_perception.launch"/> 
+
+        <node pkg="rosbag" type="record" name="record" output="screen" args="-o /home/fran/Desktop/WatermelonFBM1.bag /audio /roah_rsbb/visitor /roah_rsbb/benchmark/state /roah_rsbb/devices/bell /roah_rsbb/devices/state /object_class /object_instance /object_pose2d /object_pose /camera/rgb/image_color /camera/depth_registered/points"> 
+        </node> 
+
+</launch>

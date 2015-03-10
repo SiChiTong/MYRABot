@@ -9,14 +9,14 @@
     <arg name="paused" value="true"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="debug" value="false"/>
-    <arg name="world_name" value="$(find turtlebot_gazebo)/worlds/empty.world"/>
+    <arg name="world_name" value="$(find myrabot_navigation_b)/worlds/GrannyAnnie.world"/>
   </include>  
  
   <!-- send spring_transmission.urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find myrabot_robot_model_b)/urdf/myrabot.urdf.xacro'" />
  
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_myrabot" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model MYRAbot" respawn="false" output="screen" /> 
+  <node name="spawn_myrabot" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -Y 3.14 -model MYRAbot" respawn="false" output="screen" /> 
  
 <group ns="/brazo">
 
@@ -32,6 +32,11 @@
   
   <node name="remap_joint_states" pkg="myrabot_robot_model_b" type="remap_joint_states" />
   
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+	
+	<remap from="joint_states" to="joint_states_myrabot" />
+	
+  </node>
   
   <!-- The odometry estimator -->
 
@@ -40,7 +45,7 @@
     <param name="sensor_timeout" value="1.0"/>
     <param name="publish_tf" value="true"/>
     <param name="odom_used" value="true"/>
-    <param name="imu_used" value="false"/>
+    <param name="imu_used" value="true"/>
     <param name="vo_used" value="false"/>
 		<param name="output_frame" value="odom"/>
   </node>

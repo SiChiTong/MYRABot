@@ -16,6 +16,12 @@
         </node>
  
         <node name="nlp_component" pkg="myrabot_dialog_b" type="nlp_component.py" output="screen">
+                <param name="location" value="$(find dialog)/config/nlp_files/location_place.txt"/> 
+                <param name="items" value="$(find dialog)/config/nlp_files/items.txt"/> 
+                <param name="location_place" value="$(find dialog)/config/nlp_files/location_place.txt"/> 
+                <param name="personal_noun" value="$(find dialog)/config/nlp_files/interaction.txt"/> 
+                <param name="mode" value="$(find dialog)/config/nlp_files/mode.txt"/> 
+                mode
         </node>
         
 </launch>

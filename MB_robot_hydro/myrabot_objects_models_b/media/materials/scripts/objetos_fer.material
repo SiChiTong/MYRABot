@@ -206,3 +206,94 @@ material objetos_fer/Amstel
 		}
 	}
 }
+
+
+material objetos_fer/interruptor_1
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				texture interruptor_1.png
+				tex_coord_set 0
+				colour_op modulate
+				rotate 0
+				scale 1 1
+			}
+		}
+	}
+}
+
+material objetos_fer/interruptor_2
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				texture interruptor_2.png
+				tex_coord_set 0
+				colour_op modulate
+				rotate 0
+				scale 1 1
+			}
+		}
+	}
+}
+
+material objetos_fer/interruptor_3
+{
+	technique
+	{
+		pass
+		{
+                        lighting off
+
+
+                        ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0
+			emissive 0 0 0
+
+
+			alpha_rejection greater 128
+			depth_write on
+
+			texture_unit
+			{
+				texture interruptor_3.png
+				tex_coord_set 0
+				colour_op modulate
+				rotate 0
+				scale 1 1
+			}
+		}
+	}
+}

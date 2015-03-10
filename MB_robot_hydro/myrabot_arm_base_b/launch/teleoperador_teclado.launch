@@ -2,8 +2,12 @@
 
   <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
 
-   <node name="joint_states_brazo" pkg="myrabot_arm_base" type="joint_states_brazo" />   
+  <node name="joint_states_brazo" pkg="myrabot_arm_base" type="joint_states_brazo" />   
   
-  <node name="teleoperador_teclado" pkg="myrabot_arm_base" type="teleoperador_teclado" output="screen" />
+  <node name="teleoperador_teclado" pkg="myrabot_arm_base" type="teleoperador_teclado" output="screen">
+  
+    <param name="Elemento_Final" value="dedo" type="str" />
+  
+  </node>
 
 </launch>

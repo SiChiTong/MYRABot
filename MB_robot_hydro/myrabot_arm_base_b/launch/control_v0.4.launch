@@ -4,6 +4,6 @@
 
    <node name="joint_states_brazo" pkg="myrabot_arm_base_b" type="joint_states_brazo" />   
   
-  <node name="controlv04" pkg="myrabot_arm_base" type="control_v0.4" />
+  <node name="controlv04" pkg="myrabot_arm_base_b" type="control_v0.4" />
 
 </launch>

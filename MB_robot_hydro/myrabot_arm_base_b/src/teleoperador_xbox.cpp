@@ -27,7 +27,7 @@ geometry_msgs::Twist base;
 float pad_izquierda_x, pad_izquierda_y, gatillo_izquierda, pad_derecha_x, pad_derecha_y, gatillo_derecha, cruz_x, cruz_y;
 int boton_a, boton_b, boton_negro, boton_x, boton_y, boton_blanco, boton_back, boton_start, boton_pad_izquierda, boton_pad_derecha;
  
-  void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec)   
+  void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec)   
   {
 	
 	::p = pec.posicion;
@@ -69,7 +69,7 @@ int boton_a, boton_b, boton_negro, boton_x, boton_y, boton_blanco, boton_back, b
 	ros::NodeHandle n;
 	
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);   
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);   
   	
   	ros::Subscriber joystick_sub_= n.subscribe("joy", 1, xbox); 
   	
@@ -97,7 +97,7 @@ int boton_a, boton_b, boton_negro, boton_x, boton_y, boton_blanco, boton_back, b
 		
 			::teleop = inversa(::punto, ::pinza_incli, ::p, ::velocidad);		
 		
-			::teleop_pinza = control_pinza(::pinza, ::p, ::c);
+			::teleop_pinza = controlPinza(::pinza, ::p, ::c);
 		}
 
 		if (::pad_izquierda_y > 0.2 || ::pad_izquierda_y < -0.2 || ::pad_izquierda_x > 0.2 || ::pad_izquierda_x < -0.2 || ::pad_derecha_x > 0.2 || ::pad_derecha_x < -0.2 || pad_derecha_y > 0.2 || pad_derecha_y < -0.2 || (::gatillo_izquierda < -0.2 && ::gatillo_izquierda != -1) || (::gatillo_derecha < -0.2 && ::gatillo_derecha != -1) || ::cruz_y !=  0 || ::cruz_x !=  0 || ::boton_back != 0 || ::boton_start != 0 || ::boton_blanco != 0 || ::boton_negro != 0 || ::boton_a != 0 || ::boton_b != 0 || ::boton_x != 0 || ::boton_y != 0)
@@ -217,7 +217,7 @@ int boton_a, boton_b, boton_negro, boton_x, boton_y, boton_blanco, boton_back, b
 				if (::cruz_x != 0)
 				{     
 					::pinza.pinza = ::pinza.pinza - (::paso * ::cruz_x);
-					::teleop_pinza = control_pinza(::pinza, pose, ::c);
+					::teleop_pinza = controlPinza(::pinza, pose, ::c);
 					if (::teleop_pinza.posicion.pinza == pose.pinza) 
 					{::pinza.pinza = ::pinza.pinza + (::paso * ::cruz_x);}		
 					else

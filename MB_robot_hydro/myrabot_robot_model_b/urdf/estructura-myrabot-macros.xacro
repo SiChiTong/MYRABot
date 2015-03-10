@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 <xacro:macro name="default_inertia_e">
-	<inertia ixx="0.05" ixy="0.0" ixz="0.0" iyy="0.05" iyz="0.0" izz="0.05"/>
+	<inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
 </xacro:macro>
 
 <xacro:macro name="separador_base" params="id"> 
@@ -73,10 +73,12 @@
 <xacro:macro name="gazebo_propiedades" params="nombre material">
 <gazebo reference="${nombre}">
   <material>${material}</material>
-  <mu1>0.5</mu1>
-  <mu2>0.5</mu2>
-  <selfCollide>true</selfCollide>
-  <turnGravityOff>false</turnGravityOff>  
+  <mu1>100</mu1>
+  <mu2>100</mu2>
+  <kp>1000000.0</kp>
+  <kd>1.0</kd>
+  <!--selfCollide>true</selfCollide-->
+  <gravity>true</gravity> 
 </gazebo> 
 </xacro:macro>
 

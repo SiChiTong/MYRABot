@@ -77,35 +77,7 @@ def listener():
     r_mode          = []
     #os.system("pwd")
     
-    # get rid of empty lines and do not use anything that starts with a '#'
-    for loc in [location.strip('\n') for location in open('/home/fran/catkin_ws/src/messenger_2/config/locations.txt', 'r').readlines()]:
-        if loc != '':
-            if loc[0] != '#':
-                r_location.append(loc)
     
-    for it in [location_category.strip('\n') for location_category in open('/home/fran/catkin_ws/src/messenger_2/config/items.txt', 'r').readlines()]:
-        if it != '':
-            if it[0] != '#':
-                r_item.append(it)
-                
-    # get rid of empty lines and do not use anything that starts with a '#'
-    for loc_pla in [location.strip('\n') for location in open('/home/fran/catkin_ws/src/messenger_2/config/location_place.txt', 'r').readlines()]:
-        if loc_pla != '':
-            if loc_pla[0] != '#':
-                r_locationplace.append(loc_pla)
-    
-    for pnoun in [location_category.strip('\n') for location_category in open('/home/fran/catkin_ws/src/messenger_2/config/personalnoun.txt', 'r').readlines()]:
-        if pnoun != '':
-            if pnoun[0] != '#':
-                r_personal.append(pnoun)
-
-                # get rid of empty lines and do not use anything that starts with a '#'
-    for mode in [location.strip('\n') for location in open('/home/fran/catkin_ws/src/messenger_2/config/mode.txt', 'r').readlines()]:
-        if mode != '':
-            if mode[0] != '#':
-                r_mode.append(mode)
-    
-
     # in ROS, nodes are unique named. If two nodes with the same
     # node are launched, the previous one is kicked off. The 
     # anonymous=True flag means that rospy will choose a unique
@@ -116,6 +88,69 @@ def listener():
     rospy.Subscriber("/asr_component/asr_output", String, callback)
     global pub
     pub = rospy.Publisher('~nlp_output', String)
+    
+    rospy.loginfo("[NLP_component] Loading files: Start ....")
+    try:
+      location_ = rospy.get_param('~location')
+    except:
+      rospy.logerr('[NLP_component] Please specify the file [location] for loading')
+      return
+  
+    # get rid of empty lines and do not use anything that starts with a '#'
+    for loc in [location.strip('\n') for location in open(location_, 'r').readlines()]:
+        if loc != '':
+            if loc[0] != '#':
+                r_location.append(loc)
+    
+
+    try:
+      items_ = rospy.get_param('~items')
+    except:
+      rospy.logerr('[NLP_component] Please specify the file [items] for loading')
+      return
+      
+    for it in [location_category.strip('\n') for location_category in open(items_, 'r').readlines()]:
+        if it != '':
+            if it[0] != '#':
+                r_item.append(it)
+
+
+    try:
+      location_place_ = rospy.get_param('~location_place')
+    except:
+      rospy.logerr('[NLP_component] Please specify the file [location_place] for loading')
+      return
+    # get rid of empty lines and do not use anything that starts with a '#'
+    for loc_pla in [location.strip('\n') for location in open(location_place_, 'r').readlines()]:
+        if loc_pla != '':
+            if loc_pla[0] != '#':
+                r_locationplace.append(loc_pla)
+    
+    try:
+      personal_noun_ = rospy.get_param('~personal_noun')
+    except:
+      rospy.logerr('[NLP_component] Please specify the file [personal_noun_] for loading')
+      return
+      
+    for pnoun in [location_category.strip('\n') for location_category in open(personal_noun_ , 'r').readlines()]:
+        if pnoun != '':
+            if pnoun[0] != '#':
+                r_personal.append(pnoun)
+
+    try:
+      mode_ = rospy.get_param('~mode')
+    except:
+      rospy.logerr('[NLP_component] Please specify the file [mode] for loading')
+      return
+    # get rid of empty lines and do not use anything that starts with a '#'
+    for mode in [location.strip('\n') for location in open(mode_, 'r').readlines()]:
+        if mode != '':
+            if mode[0] != '#':
+                r_mode.append(mode)
+    
+
+    rospy.loginfo("[NLP_component] Loading files: Finished .... ** ** ** ** **")
+
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

@@ -16,13 +16,13 @@
        xmlns:xacro="http://ros.org/wiki/xacro">
        
     <!-- Propiedades estructura -->   
-    <xacro:property name="altura_monitor" value="1.15" />
+    <xacro:property name="altura_monitor" value="1.15" /> 
 	<xacro:property name="inclinacion_monitor" value="0.12" />
 	<xacro:property name="inclinacion_soporte_camara" value="-0.12" />
     
-    <!-- Propiedades estructura -->  
+    <!-- Propiedades xtion -->  
 	<xacro:property name="orientacion_camara" value="0.0"/> <!-- 3.14 para cambiar orientacion camara -->
-	<xacro:property name="inclinacion_camara" value="-0.65"/> <!-- 0.0 para colocar perpendicular a soporte -->
+	<xacro:property name="inclinacion_camara" value="-0.60"/> <!-- 0.0 para colocar perpendicular a soporte -->
 	<xacro:property name="avance_camara" value="0.03"/> <!-- 0.0 para colocar en el centro del soporte -->
 	
 	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/roomba.xacro" />		
@@ -33,13 +33,46 @@
 	
 	<xacro:include filename="$(find myrabot_arm_model_b)/urdf/brazo_real.xacro" />	
 
-	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/webcam.xacro" />
+	<!--xacro:include filename="$(find myrabot_robot_model_b)/urdf/webcam.xacro" /-->
 	
-	<!--xacro:include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" /-->	
+	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/xtion.xacro" />	
 	
 	<xacro:include filename="$(find myrabot_robot_model_b)/urdf/ultrasonidos.xacro" />		
 	
+	<!--link name="world" />
+	
+	<roomba parent="world" /-->
+	
 	<roomba />
+	
+	<!--joint name="robot_at_home_joint" type="fixed">
+	  <parent link="base_footprint"/>
+	  <child link="robot_at_home"/>
+	  <origin xyz="${0.12263 - (0.17)} 0.0075238 1.3666" rpy="0 0 0" />
+	</joint>
+	
+  <link name="robot_at_home">
+    <inertial>
+      <mass value="0.010"/>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+      <material name="grey">
+		<color rgba="0.5 0.5 0.5 1" />
+	  </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+    </collision>
+  </link--> 
 	
 	<estructura_myrabot parent="base_link">
 		<origin rpy="0 0 1.57" xyz="0 0 0.063"/>	
@@ -53,13 +86,19 @@
 		<origin rpy="0 0 1.57" xyz="0 -0.1015 0.075"/>
 	</brazo>
 	
-	<webcam parent="e_soporte_3_link" inclinacion_webcam="0.82">
-		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
-	</webcam>
+	<pinza />
 	
-	<!--xtion parent="e_soporte_3_link">
-		<origin rpy="0 ${-inclinacion_camara} ${-1.57+orientacion_camara}" xyz="0.0 ${-avance_camara} 0.175"/>	
-	</xtion-->
+	<!--dedo_1 />
+	
+	<dedo_2 /-->
+	
+	<!--webcam parent="e_soporte_3_link" inclinacion_webcam="0.82">
+		<origin rpy="0 0 0" xyz="-0.135 -0.135 ${0.145/2}"/>	
+	</webcam-->
+	
+	<xtion parent="e_soporte_3_link">
+		<origin rpy="0 ${-inclinacion_camara} ${-1.57+orientacion_camara}" xyz="0.0 ${-avance_camara} 0.180"/>	
+	</xtion>
 	
 	<ultrasonidos id="1" parent="e_base_2_link" d_centro="0.150">
 		<origin rpy="0 0 1.57" xyz="0 0 ${0.04-0.007}"/>	

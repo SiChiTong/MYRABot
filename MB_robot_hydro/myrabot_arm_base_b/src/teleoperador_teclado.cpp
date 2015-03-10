@@ -34,8 +34,9 @@ double retardo = 0.11;
   
   int pinza_incli = 0;
   
-	
-void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec) 
+  std::string elemento_final = "pinza";
+  
+void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec) 
   { 
 	     
 	::p = pec.posicion;  
@@ -53,7 +54,9 @@ void quit(int sig)
 void callback(const ros::TimerEvent&)
 {
  
-	ros::NodeHandle n;   	
+	ros::NodeHandle n;   	 	
+  	
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);
   	
   	ros::Publisher move_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("move_arm", 1); 
   	
@@ -68,7 +71,7 @@ void callback(const ros::TimerEvent&)
     {
 		anterior = ros::Time::now();
 		
-		::punto = home(::p, ::c);	
+		::punto = home(::p, ::c, ::elemento_final);	
 		
 		::cont = 1;
 		
@@ -76,7 +79,7 @@ void callback(const ros::TimerEvent&)
 		
 		teleop = inversa(::punto, ::pinza_incli, ::p, 0);		
 		
-		teleop_pinza = control_pinza(::pinza, ::p, ::c);
+		teleop_pinza = controlPinza(::pinza, ::p, ::c);
 		
 		//std::cout<<teleop<<"-"<<teleop_pinza<<std::endl;
 	}
@@ -123,108 +126,108 @@ void callback(const ros::TimerEvent&)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{
-		::punto.x = ::punto.x - 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::punto.x = ::punto.x + 5;}
-		anterior = ros::Time::now();
+			::punto.x = ::punto.x - 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::punto.x = ::punto.x + 5;}
+			anterior = ros::Time::now();
 		}			
       }
       if (c == KEYCODE_Xmenos)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::punto.x = ::punto.x + 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::punto.x = ::punto.x - 5;}
-		anterior = ros::Time::now();
+			::punto.x = ::punto.x + 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(p, teleop))
+			{::punto.x = ::punto.x - 5;}
+			anterior = ros::Time::now();
 		}				
       }
       if (c == KEYCODE_Ymas)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::punto.y = ::punto.y + 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::punto.y = ::punto.y - 5;}
-		anterior = ros::Time::now();
+			::punto.z = ::punto.z + 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::punto.z = ::punto.z - 5;}
+			anterior = ros::Time::now();
 		}					    
       }
       if (c == KEYCODE_Ymenos)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::punto.y = ::punto.y - 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::punto.y = ::punto.y + 5;}		
-		anterior = ros::Time::now();
+			::punto.z = ::punto.z - 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::punto.z = ::punto.z + 5;}		
+			anterior = ros::Time::now();
 		}						
       }
       if (c == KEYCODE_Zmas)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::punto.z = ::punto.z + 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3)  
-		{::punto.z = ::punto.z - 5;}		
-		anterior = ros::Time::now();
+			::punto.y = ::punto.y + 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::punto.y = ::punto.y - 5;}		
+			anterior = ros::Time::now();
 		}					
       }
       if (c == KEYCODE_Zmenos)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::punto.z = ::punto.z - 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::punto.z = ::punto.z + 5;}	
-		anterior = ros::Time::now();
+			::punto.y = ::punto.y - 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::punto.y = ::punto.y + 5;}	
+			anterior = ros::Time::now();
 		}				
       }
       if (c == KEYCODE_Pabrir)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::pinza.pinza = ::pinza.pinza - 5;
-		teleop_pinza = control_pinza(::pinza, ::p, ::c);
-		if (teleop_pinza.posicion.pinza == ::p.pinza) {::pinza.pinza = ::pinza.pinza + 5;}		
-		anterior = ros::Time::now();
+			::pinza.pinza = ::pinza.pinza - 5;
+			teleop_pinza = controlPinza(::pinza, ::p, ::c);
+			if (teleop_pinza.posicion.pinza == ::p.pinza) {::pinza.pinza = ::pinza.pinza + 5;}		
+			anterior = ros::Time::now();
 		}
       }
       if (c == KEYCODE_Pcerrar)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::pinza.pinza = ::pinza.pinza + 5;
-		teleop_pinza = control_pinza(::pinza, ::p, ::c);
-		if (teleop_pinza.posicion.pinza == ::p.pinza) {::pinza.pinza = ::pinza.pinza - 5;}
-		anterior = ros::Time::now();
+			::pinza.pinza = ::pinza.pinza + 5;
+			teleop_pinza = controlPinza(::pinza, ::p, ::c);
+			if (teleop_pinza.posicion.pinza == ::p.pinza) {::pinza.pinza = ::pinza.pinza - 5;}
+			anterior = ros::Time::now();
 		}
       }
       if (c == KEYCODE_PinclinarMas)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::pinza_incli = ::pinza_incli + 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::pinza_incli = ::pinza_incli - 5;}
-		anterior = ros::Time::now();
+			::pinza_incli = ::pinza_incli + 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, ::elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::pinza_incli = ::pinza_incli - 5;}
+			anterior = ros::Time::now();
 		}
       }
       if (c == KEYCODE_PinclinarMenos)
       {
 		if (ros::Time::now() > anterior + ros::Duration(::retardo))
 		{      
-		::pinza_incli = ::pinza_incli - 5;
-		teleop = inversa(::punto, ::pinza_incli, ::p, 0);
-		if (teleop.posicion.base == ::p.base && teleop.posicion.arti1 == ::p.arti1 && teleop.posicion.arti2 == ::p.arti2 && teleop.posicion.arti3 == ::p.arti3) 
-		{::pinza_incli = ::pinza_incli + 5;}
-		anterior = ros::Time::now();
+			::pinza_incli = ::pinza_incli - 5;
+			teleop = inversa(::punto, ::pinza_incli, ::p, 0, elemento_final);
+			if (igualPosicion(::p, teleop))
+			{::pinza_incli = ::pinza_incli + 5;}
+			anterior = ros::Time::now();
 		}
       }                                     
 		
@@ -246,13 +249,14 @@ void callback(const ros::TimerEvent&)
 	ros::init(argc, argv, "teleoperador_teclado");   
  
 	ros::NodeHandle n;
+	
+	ros::param::get("~Elemento_Final",::elemento_final);
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);  	
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);  	
   	
   	ros::Publisher move_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("move_arm", 1);   
   	
-  	ros::Publisher hand_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("hand_arm", 1);    
-		 	 
+  	ros::Publisher hand_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("hand_arm", 1);
 
 	signal(SIGINT,quit); 
 	

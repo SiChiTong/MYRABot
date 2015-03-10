@@ -70,56 +70,7 @@
     <bioloid_F2_revolute parent="servo_arti_3_link" name="arti3" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
       <origin xyz="0 0 0" rpy="0 0 0" />
     </bioloid_F2_revolute>
-    <bioloid_F3_fixed parent="arti3_link" name="arti3_F3_0" color="white">
-      <origin xyz="0 0.016 ${F2_HEIGHT}" rpy="0 ${M_PI} ${-M_PI/2}" />
-    </bioloid_F3_fixed>
-
-    <!-- gripper joint -->
-    <dynamixel_AX12_fixed parent="arti3_F3_0_link" name="servo_pinza">
-      <origin xyz="-0.02275 0 ${-AX12_WIDTH/2}" rpy="${M_PI} ${M_PI/2} 0"/>
-    </dynamixel_AX12_fixed>
-
-    <!-- finger 1 -->
-    <joint name="pinza" type="revolute">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <axis xyz="0 1 0"/>
-      <limit effort="100" velocity="3" lower="-2.62" upper="2.62" />
-      <default_dynamics/>
-      <parent link="servo_pinza_link"/>
-      <child link="pinza_movil_link" />
-    </joint>
-    <link name="pinza_movil_link">
-      <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" />
-        <default_inertia/>      
-      </inertial>
-      <visual>
-        <origin xyz=" 0 0 0 " rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://myrabot_arm_model_b/meshes/F2.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
-        </geometry>
-        <material name="white"/>
-      </visual>
-      <collision>
-        <origin xyz=" 0 0 0 " rpy="0 0 0" />
-        <geometry>
-          <mesh filename="package://myrabot_arm_model_b/meshes/F2.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
-        </geometry>
-      </collision>
-    </link>
-    <finger_fixed parent="pinza_movil_link" name="pinza_movil_dedo" color="white">
-      <origin xyz="0 0 ${F2_HEIGHT}" rpy="0 0 0" />
-    </finger_fixed>
-
-    <!-- finger 2 -->
-    <bioloid_F3_fixed parent="servo_pinza_link" name="pinza_fija" color="white">
-      <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0" />
-    </bioloid_F3_fixed>
-    <finger_fixed parent="pinza_fija_link" name="pinza_fija_dedo" color="white">
-      <origin xyz="0 0 0" rpy="0 0 ${M_PI}" />
-    </finger_fixed>
-
+    
 
 <gazebo_propiedades_link nombre="servo_base_link" material="brazo_fer/Black" />
 
@@ -152,18 +103,6 @@
 <gazebo_propiedades_link nombre="servo_arti_3_link" material="brazo_fer/Black" />  
   
 <gazebo_propiedades_link nombre="arti3_link" material="brazo_fer/White" />
-   
-<gazebo_propiedades_link nombre="arti3_F3_0_link" material="brazo_fer/White" />
- 
-<gazebo_propiedades_link nombre="servo_pinza_link" material="brazo_fer/Black" /> 
-
-<gazebo_propiedades_link nombre="pinza_movil_link" material="brazo_fer/White" />      
-  
-<gazebo_propiedades_link nombre="pinza_movil_dedo_link" material="brazo_fer/WhiteTransparent" />
-
-<gazebo_propiedades_link nombre="pinza_fija_link" material="brazo_fer/White" />  
-
-<gazebo_propiedades_link nombre="pinza_fija_dedo_link" material="brazo_fer/WhiteTransparent" />  
   
 
 <gazebo_propiedades_joint nombre="base_brazo" />
@@ -173,9 +112,122 @@
 <gazebo_propiedades_joint nombre="arti2" />
 
 <gazebo_propiedades_joint nombre="arti3" />
- 
-<gazebo_propiedades_joint nombre="pinza" />
+
 
 </xacro:macro>
+
+
+    <xacro:macro name="pinza">
+      <!-- F3 for finger 1-finger 2 and dedo 1 -->
+      <bioloid_F3_fixed parent="arti3_link" name="arti3_F3_0" color="white">
+        <origin xyz="0 0.016 ${F2_HEIGHT}" rpy="0 ${M_PI} ${-M_PI/2}" />
+      </bioloid_F3_fixed>
+      
+      <!-- gripper joint for finger 1-finger 2 and dedo 1 -->
+      <dynamixel_AX12_fixed parent="arti3_F3_0_link" name="servo_pinza">
+        <origin xyz="-0.02275 0 ${-AX12_WIDTH/2}" rpy="${M_PI} ${M_PI/2} 0"/>
+      </dynamixel_AX12_fixed>
+      
+      <!-- F2 fingers and dedos 1 -->
+      <bioloid_F2_revolute parent="servo_pinza_link" name="pinza" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </bioloid_F2_revolute>
+      
+      <!-- finger 1 -->
+      <finger_fixed parent="pinza_link" name="pinza_movil_finger" color="white">
+        <origin xyz="0 0 ${F2_HEIGHT}" rpy="0 0 0" />
+      </finger_fixed>
+      
+      <!-- finger 2 -->
+      <bioloid_F3_fixed parent="servo_pinza_link" name="pinza_fija" color="white">
+        <origin xyz="0 0 ${-AX12_HEIGHT-F10_HEIGHT+0.001}" rpy="0 ${M_PI} 0" />
+      </bioloid_F3_fixed>
+      <finger_fixed parent="pinza_fija_link" name="pinza_fija_finger" color="white">
+        <origin xyz="0 0 0" rpy="0 0 ${M_PI}" />
+      </finger_fixed>
+      
+      <gazebo_propiedades_link nombre="arti3_F3_0_link" material="brazo_fer/White" />
+ 
+      <gazebo_propiedades_link nombre="servo_pinza_link" material="brazo_fer/Black" /> 
+
+      <gazebo_propiedades_link nombre="pinza_link" material="brazo_fer/White" />      
+  
+      <gazebo_propiedades_link nombre="pinza_movil_finger_link" material="brazo_fer/WhiteTransparent" />
+
+      <gazebo_propiedades_link nombre="pinza_fija_link" material="brazo_fer/White" />  
+
+      <gazebo_propiedades_link nombre="pinza_fija_finger_link" material="brazo_fer/WhiteTransparent" />  
+      
+      
+      <gazebo_propiedades_joint nombre="pinza" />
+    </xacro:macro>
+    
+    
+    <xacro:macro name="dedo_1">
+      <!-- F3 for finger 1-finger 2 and dedo 1 -->
+      <bioloid_F3_fixed parent="arti3_link" name="arti3_F3_0" color="white">
+        <origin xyz="0 0.016 ${F2_HEIGHT}" rpy="0 ${M_PI} ${-M_PI/2}" />
+      </bioloid_F3_fixed>
+      
+      <!-- gripper joint for finger 1-finger 2 and dedo 1 -->
+      <dynamixel_AX12_fixed parent="arti3_F3_0_link" name="servo_pinza">
+        <origin xyz="-0.02275 0 ${-AX12_WIDTH/2}" rpy="${M_PI} ${M_PI/2} 0"/>
+      </dynamixel_AX12_fixed>
+      
+      <!-- F2 fingers and dedos 1 -->
+      <bioloid_F2_revolute parent="servo_pinza_link" name="pinza" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+      </bioloid_F2_revolute>
+      
+      <!-- dedo 1 -->
+      <dedo_fixed parent="pinza_link" name="pinza_movil_dedo" color="black">
+        <origin xyz="${-0.025/2} ${-0.038/2} ${(-0.049/2)+0.002}" rpy="0 0 0" />
+      </dedo_fixed>
+      
+      <gazebo_propiedades_link nombre="arti3_F3_0_link" material="brazo_fer/White" />
+ 
+      <gazebo_propiedades_link nombre="servo_pinza_link" material="brazo_fer/Black" /> 
+
+      <gazebo_propiedades_link nombre="pinza_link" material="brazo_fer/White" />      
+
+      <gazebo_propiedades_link nombre="pinza_movil_dedo_link" material="brazo_fer/Black" /> 
+      
+      
+      <gazebo_propiedades_joint nombre="pinza" />
+    </xacro:macro>
+    
+    
+    <xacro:macro name="dedo_2">
+      <!-- F3 for dedo 2 -->
+      <bioloid_F3_fixed parent="arti3_link" name="arti3_F3_0" color="white">
+        <origin xyz="0 ${(HOLES_DISTANCE*3) - 0.0004} ${F2_HEIGHT}" rpy="0 ${M_PI} ${-M_PI/2}" />
+      </bioloid_F3_fixed>
+      
+      <!-- gripper joint for dedo 2 -->
+      <dynamixel_AX12_fixed parent="arti3_F3_0_link" name="servo_pinza">
+        <origin xyz="0 0 ${-AX12_HEIGHT - F3_HEIGHT/2}" rpy="0 ${M_PI} 0"/>
+      </dynamixel_AX12_fixed>
+      
+      <!-- F2 dedo 2 -->
+      <bioloid_F2_revolute parent="servo_pinza_link" name="pinza" color="white" vlimit="3" llimit="-2.62" ulimit="2.62">
+        <origin xyz="0 0 0" rpy="0 ${M_PI/2} 0" />
+      </bioloid_F2_revolute>
+      
+      <!-- dedo 2 -->
+      <dedo_fixed parent="pinza_link" name="pinza_movil_dedo" color="black">
+        <origin xyz="${0.025/2} ${-0.038/2} ${0.049+0.003+F2_HEIGHT}" rpy="${M_PI} 0 ${M_PI}" />
+      </dedo_fixed>
+      
+      <gazebo_propiedades_link nombre="arti3_F3_0_link" material="brazo_fer/White" />
+ 
+      <gazebo_propiedades_link nombre="servo_pinza_link" material="brazo_fer/Black" /> 
+
+      <gazebo_propiedades_link nombre="pinza_link" material="brazo_fer/White" />      
+
+      <gazebo_propiedades_link nombre="pinza_movil_dedo_link" material="brazo_fer/Black" /> 
+      
+      
+      <gazebo_propiedades_joint nombre="pinza" />
+    </xacro:macro>
      
 </robot>

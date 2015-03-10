@@ -2,29 +2,27 @@
   #include "ros/time.h"  
   #include "sensor_msgs/JointState.h"
   
-  sensor_msgs::JointState joint_states_todo;
   int cont_brazo = 0;
   int cont_roomba = 0;
-  std::string name[9];
-  float position[9];
-  float velocity[9];
-  float effort[9];
+  int tam_js, tam_brazo;
+  std::vector<std::string> name;
+  std::vector<float> position;
+  std::vector<float> velocity;
+  std::vector<float> effort;
 
   void brazo(const sensor_msgs::JointState& brazo_states)
   {
-	
-	int tam = brazo_states.name.size();
+	::tam_brazo = brazo_states.name.size();
 	
 	if (::cont_brazo == 0)
 	{		
 		
-		for (int i = 0; i < tam; i++)
+		for (int i = 0; i < ::tam_brazo; i++)
 		{
-			::name[i] = brazo_states.name[i];
-
-			::position[i] = brazo_states.position[i];
-			::velocity[i] = brazo_states.velocity[i];
-			::effort[i] = brazo_states.effort[i];
+			::name.push_back(brazo_states.name[i]);
+			::position.push_back(brazo_states.position[i]);
+			::velocity.push_back(brazo_states.velocity[i]);
+			::effort.push_back(brazo_states.effort[i]);
 		}
 		
 		::cont_brazo = 1;
@@ -33,16 +31,18 @@
   
   void roomba(const sensor_msgs::JointState& roomba_states)
   {
-	int tam = roomba_states.name.size();
+	::tam_js = roomba_states.name.size();
 	
 	if (::cont_roomba == 0)
 	{
-		for (int i = 0; i < tam; i++)
+		for (int i = 0; i < ::tam_js; i++)
 		{
-			::name[i+5] = roomba_states.name[i];
-			::position[i+5] = roomba_states.position[i];
-			::velocity[i+5] = roomba_states.velocity[i];
-			::effort[i+5] = roomba_states.effort[i];
+			::name.push_back(roomba_states.name[i]);
+			::position.push_back(roomba_states.position[i]);
+			if (roomba_states.velocity.size() == ::tam_js)
+			::velocity.push_back(roomba_states.velocity[i]);
+			if (roomba_states.effort.size() == ::tam_js)
+			::effort.push_back(roomba_states.effort[i]);
 		}
 		
 		::cont_roomba = 1;
@@ -64,39 +64,42 @@
     ros::Rate loop_rate(100);
     
 	ros::Time ahora;
-    
-	::joint_states_todo.name = std::vector<std::string>(9);
-	::joint_states_todo.position = std::vector<double>(9);
-	::joint_states_todo.velocity = std::vector<double>(9);
-	::joint_states_todo.effort = std::vector<double>(9);		  	      	
+
+	sensor_msgs::JointState joint_states_todo;		  	      	
 
     while (ros::ok())
     {	
 		
 		if (::cont_brazo == 1 && ::cont_roomba == 1)
 		{
+			int tam = ::tam_brazo+::tam_js;
+
+			joint_states_todo.name = std::vector<std::string>(tam);
+			joint_states_todo.position = std::vector<double>(tam);
+			joint_states_todo.velocity = std::vector<double>(tam);
+			joint_states_todo.effort = std::vector<double>(tam);
 			
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < tam; i++)
 			{
-				::joint_states_todo.name[i] = ::name[i];
-				::joint_states_todo.position[i] = ::position[i];
-				::joint_states_todo.velocity[i] = ::velocity[i];
-				::joint_states_todo.effort[i] = ::effort[i];
+				joint_states_todo.name[i] = ::name[i];
+				joint_states_todo.position[i] = ::position[i];
+				joint_states_todo.velocity[i] = ::velocity[i];
+				joint_states_todo.effort[i] = ::effort[i];
 			}
 			
 			ahora = ros::Time::now();
 			
-			::joint_states_todo.header.stamp = ahora; 			
+			joint_states_todo.header.stamp = ahora; 			
 			
-			joint_states_pub_.publish(::joint_states_todo);
+			joint_states_pub_.publish(joint_states_todo);
 			
 			::cont_brazo = 0;
 			::cont_roomba = 0;
 		}
 		
-			ros::spinOnce();
+		ros::spinOnce();
 	
-			loop_rate.sleep();			
+		loop_rate.sleep();			
 	}   
    	   
  

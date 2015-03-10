@@ -24,10 +24,12 @@ int flanco;
 
 geometry_msgs::Twist base;
 
+std::string elemento_final = "pinza";
+
 float pad_izquierda_x, pad_izquierda_y, gatillo_izquierda, pad_derecha_x, pad_derecha_y, gatillo_derecha;
 int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_back, boton_start, boton_pad_izquierda, boton_pad_derecha, cruz_izquierda, cruz_derecha, cruz_arriba, cruz_abajo;
  
-  void posicion_estado_corriente(const myrabot_arm_base_b::ReadServos& pec)   
+  void posicionEstadoCorriente(const myrabot_arm_base_b::ReadServos& pec)   
   {
 	
 	::p = pec.posicion;
@@ -70,7 +72,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 	ros::NodeHandle n;
 	
   	
-  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicion_estado_corriente);   
+  	ros::Subscriber pose_sub_= n.subscribe("pose_arm", 1, posicionEstadoCorriente);   
   	
   	ros::Subscriber joystick_sub_= n.subscribe("joy", 1, xbox); 
   	
@@ -79,7 +81,9 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 
 	ros::Publisher hand_pub_=n.advertise<myrabot_arm_base_b::WriteServos>("hand_arm", 1);
 	
-	ros::Publisher base_pub_=n.advertise<geometry_msgs::Twist>("myrabot_node/cmd_vel", 1); 
+	ros::Publisher base_pub_=n.advertise<geometry_msgs::Twist>("cmd_vel", 1); 
+	
+	ros::param::get("~Elemento_Final",::elemento_final);
 		
     ros::Rate loop_rate(5);	
 	
@@ -90,7 +94,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 		
 		if (::cont == 0 && (pose.base != 0 && pose.arti1 != 0 && pose.arti2 != 0 && pose.arti3 != 0))
 		{
-			::punto = home(::p, ::c);	
+			::punto = home(::p, ::c, ::elemento_final);
 		
 			::cont = 1;
 		
@@ -98,7 +102,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 		
 			::teleop = inversa(::punto, ::pinza_incli, ::p, ::velocidad);		
 		
-			::teleop_pinza = control_pinza(::pinza, ::p, ::c);
+			::teleop_pinza = controlPinza(::pinza, ::p, ::c);
 		}
 
 		if (::pad_izquierda_y > 0.2 || ::pad_izquierda_y < -0.2 || ::pad_izquierda_x > 0.2 || ::pad_izquierda_x < -0.2 || ::pad_derecha_x > 0.2 || ::pad_derecha_x < -0.2 || pad_derecha_y > 0.2 || pad_derecha_y < -0.2 || (::gatillo_izquierda < -0.2 && ::gatillo_izquierda != -1) || (::gatillo_derecha < -0.2 && ::gatillo_derecha != -1) || ::cruz_izquierda !=  0 || ::cruz_derecha !=  0 || ::cruz_arriba != 0 || ::cruz_abajo != 0 || ::boton_back != 0 || ::boton_start != 0 || ::boton_a != 0 || ::boton_b != 0 || ::boton_x != 0 || ::boton_y != 0 || ::boton_izquierda != 0 || ::boton_derecha != 0)
@@ -165,7 +169,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				{
 					float f_pad_derecha_x = ::pad_derecha_x;
 					::punto.x = ::punto.x + (f_pad_derecha_x * ::paso);
-					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
+					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
 					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3) 
 					{::punto.x = ::punto.x - (f_pad_derecha_x * ::paso);}
 					else
@@ -175,10 +179,10 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (pad_derecha_y > 0.2 || pad_derecha_y < -0.2)
 				{
 					float f_pad_derecha_y = ::pad_derecha_y;
-					::punto.y = ::punto.y + (f_pad_derecha_y * ::paso);
-					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
+					::punto.z = ::punto.z + (f_pad_derecha_y * ::paso);
+					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
 					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3) 
-					{::punto.y = ::punto.y - (f_pad_derecha_y * ::paso);}
+					{::punto.z = ::punto.z - (f_pad_derecha_y * ::paso);}
 					else
 					{move_pub_.publish(::teleop);}
 				}
@@ -186,10 +190,10 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::gatillo_izquierda < -0.2 && ::gatillo_izquierda != -1)
 				{
 					float f_gatillo_izquierda = ::gatillo_izquierda;
-					::punto.z = ::punto.z + (f_gatillo_izquierda  * (::paso/2));
-					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
+					::punto.y = ::punto.y + (f_gatillo_izquierda  * (::paso/2));
+					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
 					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3) 
-					{::punto.z = ::punto.z - (f_gatillo_izquierda * (::paso/2));}
+					{::punto.y = ::punto.y - (f_gatillo_izquierda * (::paso/2));}
 					else
 					{move_pub_.publish(::teleop);}
 				}
@@ -197,10 +201,10 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::gatillo_derecha < -0.2 && ::gatillo_derecha != -1)
 				{
 					float f_gatillo_derecha = ::gatillo_derecha;
-					::punto.z = ::punto.z - (f_gatillo_derecha  * (::paso/2));
-					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
+					::punto.y = ::punto.y - (f_gatillo_derecha  * (::paso/2));
+					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
 					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3) 
-					{::punto.z = ::punto.z + (f_gatillo_derecha * (::paso/2));}
+					{::punto.y = ::punto.y + (f_gatillo_derecha * (::paso/2));}
 					else
 					{move_pub_.publish(::teleop);}
 				}		
@@ -208,8 +212,8 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::cruz_arriba !=  0)
 				{
 					::pinza_incli = ::pinza_incli - (::paso * ::cruz_arriba);
-					teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
-					if (teleop.posicion.base == pose.base && teleop.posicion.arti1 == pose.arti1 && teleop.posicion.arti2 == pose.arti2 && teleop.posicion.arti3 == pose.arti3) 
+					teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
+					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3)
 					{::pinza_incli = ::pinza_incli + (::paso * ::cruz_arriba);}
 					else
 					{move_pub_.publish(::teleop);}
@@ -218,8 +222,8 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::cruz_abajo !=  0)
 				{
 					::pinza_incli = ::pinza_incli + (::paso * ::cruz_abajo);
-					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad);
-					if (teleop.posicion.base == pose.base && teleop.posicion.arti1 == pose.arti1 && teleop.posicion.arti2 == pose.arti2 && teleop.posicion.arti3 == pose.arti3) 
+					::teleop = inversa(::punto, ::pinza_incli, pose, ::velocidad, ::elemento_final);
+					if (::teleop.posicion.base == pose.base && ::teleop.posicion.arti1 == pose.arti1 && ::teleop.posicion.arti2 == pose.arti2 && ::teleop.posicion.arti3 == pose.arti3)
 					{::pinza_incli = ::pinza_incli - (::paso * ::cruz_abajo);}
 					else
 					{move_pub_.publish(::teleop);}
@@ -228,7 +232,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::boton_izquierda != 0)
 				{     
 					::pinza.pinza = ::pinza.pinza - (::paso * ::boton_izquierda);
-					::teleop_pinza = control_pinza(::pinza, pose, ::c);
+					::teleop_pinza = controlPinza(::pinza, pose, ::c);
 					if (::teleop_pinza.posicion.pinza == pose.pinza) 
 					{::pinza.pinza = ::pinza.pinza + (::paso * ::boton_izquierda);}
 					else
@@ -238,7 +242,7 @@ int boton_a, boton_b, boton_izquierda, boton_x, boton_y, boton_derecha, boton_ba
 				if (::boton_derecha != 0)
 				{     
 					::pinza.pinza = ::pinza.pinza + (::paso * ::boton_derecha);
-					::teleop_pinza = control_pinza(::pinza, pose, ::c);
+					::teleop_pinza = controlPinza(::pinza, pose, ::c);
 					if (::teleop_pinza.posicion.pinza == pose.pinza) 
 					{::pinza.pinza = ::pinza.pinza - (::paso * ::boton_derecha);}
 					else

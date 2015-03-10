@@ -1,15 +1,24 @@
 <launch>
 
+  <!-- send spring_transmission.urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find myrabot_robot_model_b)/urdf/myrabot_brazo_real.urdf.xacro'" />
+  
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+    <param name="publish_frequency" type="double" value="5.0" />
+    <!--param name="tf_prefix" type="string" value="" /-->
+  </node>
+
   <node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
   
   <node name="joint_states_brazo" pkg="myrabot_arm_base_b" type="joint_states_brazo" />   
 
   <node pkg="joy" type="joy_node" name="joystick"/>
   
-  <include file="$(find myrabot_bringup)/launch/roomba.launch" />  
+  <include file="$(find myrabot_bringup_b)/launch/roomba.launch" />  
   
   <node name="teleoperador_xbox360" pkg="myrabot_arm_base_b" type="teleoperador_xbox360" output="screen">
 	<!--remap from="cmd_vel" to="myrabot_node/cmd_vel"/-->
+	<param name="Elemento_Final" value="dedo" type="str" />
   </node>
 
 </launch>

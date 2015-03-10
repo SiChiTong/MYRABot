@@ -45,10 +45,10 @@
   
 <gazebo reference="ultrasonidos_${id}_link_fisico">
   <material>myrabot_fer/Black</material>
-  <mu1>0.5</mu1>
-  <mu2>0.5</mu2>
-  <selfCollide>true</selfCollide>
-  <turnGravityOff>false</turnGravityOff> 
+  <mu1>100</mu1>
+  <mu2>100</mu2>
+  <!--selfCollide>true</selfCollide-->
+  <turnGravityOff>false</turnGravityOff>
 </gazebo>  
 
     <gazebo reference="ultrasonidos_${id}_link">

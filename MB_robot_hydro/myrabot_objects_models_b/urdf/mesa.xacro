@@ -31,7 +31,7 @@
   <inertial>
     <origin rpy="0 0 0" xyz="0 0 ${(0.03/2)+altura}" />
     <mass value="5" />
-      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>  
+      <inertia ixx="0.25" ixy="0.0" ixz="0.0" iyy="0.25" iyz="0.0" izz="0.25"/>  
   </inertial>
 </link>
 
@@ -74,8 +74,8 @@
 
 <gazebo reference="mesa_link">
   <material>objetos_fer/LightWood</material>
-  <mu1>10</mu1>
-  <mu2>10</mu2>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
   <selfCollide>true</selfCollide>
   <turnGravityOff>false</turnGravityOff>  
 </gazebo>
@@ -83,10 +83,10 @@
 <xacro:macro name="gazebo_pata" params="id">
 <gazebo reference="pata_${id}_link">
   <material>objetos_fer/Black</material>
-  <mu1>0.9</mu1>
-  <mu2>0.9</mu2>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
   <selfCollide>true</selfCollide>
-  <turnGravityOff>false</turnGravityOff>  
+  <gravity>true</gravity>
 </gazebo>
 </xacro:macro>
 

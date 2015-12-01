@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<robot xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller" xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface" xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor" xmlns:xacro="http://ros.org/wiki/xacro">
+	
+
+<xacro:macro name="webcam" params="parent inclinacion_webcam *origin">
+  
+  <joint name="webcam_1" type="fixed">
+	<insert_block name="origin" />
+    <parent link="${parent}" />
+    <child link="e_webcam_1_link" />
+  </joint>
+
+  <link name="e_webcam_1_link">
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz=" 0 0 0 " rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://myrabot_robot_model/meshes/webcam_1b.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black">
+	    <color rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://myrabot_robot_model/meshes/webcam_1b.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="webcam_2" type="fixed">
+    <origin xyz="0 ${0.135-0.04-(0.02-0.009)} ${(0.185/2)+0.0045}" rpy="${inclinacion_webcam} 0 0" />	
+    <parent link="e_webcam_1_link" />
+    <child link="e_webcam_2_link" />
+  </joint>
+
+  <link name="e_webcam_2_link">
+    <inertial>
+      <mass value="0.01" />
+      <origin xyz="0 -${0.135-0.04-(0.02-0.009)} -${(0.185/2)+0.0045}" rpy="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -${0.135-0.04-(0.02-0.009)} -${(0.185/2)+0.0045}" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://myrabot_robot_model/meshes/webcam_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 -${0.135-0.04-(0.02-0.009)} -${(0.185/2)+0.0045}" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://myrabot_robot_model/meshes/webcam_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link> 
+  
+  <joint name="webcam_optica" type="fixed">
+    <origin xyz="0.135 -0.0285 0" rpy="0 0 -1.57" />	
+    <parent link="e_webcam_2_link" />
+    <child link="e_webcam_optica_link" />
+  </joint>
+
+  <link name="e_webcam_optica_link">
+    <inertial>
+      <mass value="0.001" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.017" length="0.004" />
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57 0" />
+      <geometry>
+        <cylinder radius="0.017" length="0.004" />
+      </geometry>
+    </collision>
+  </link>   
+
+<gazebo reference="e_webcam_1_link">
+  <material>myrabot_fer/Black</material>
+  <mu1>100</mu1>
+  <mu2>100</mu2>
+  <!--selfCollide>true</selfCollide-->
+  <turnGravityOff>false</turnGravityOff> 
+</gazebo>
+
+<gazebo reference="e_webcam_2_link">
+  <material>myrabot_fer/Black</material>
+  <mu1>100</mu1>
+  <mu2>100</mu2>
+  <!--selfCollide>true</selfCollide-->
+  <turnGravityOff>false</turnGravityOff>
+</gazebo>
+
+<gazebo reference="e_webcam_optica_link">
+  <material>myrabot_fer/White</material>
+  <mu1>100</mu1>
+  <mu2>100</mu2>
+  <!--selfCollide>true</selfCollide-->
+  <turnGravityOff>false</turnGravityOff>
+</gazebo>
+
+  <gazebo reference="e_webcam_optica_link">
+    <sensor type="camera" name="webcam">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.1</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>3</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.  
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>20</updateRate>
+        <robotNamespace>/</robotNamespace> 
+        <cameraName>webcam</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>e_webcam_optica_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo> 
+  
+  <!--gazebo reference="e_webcam_optica_link">
+    <sensor:camera name="webcam">
+      <image>
+		<format>R8G8B8</format>
+		<width>640</width>
+		<height>480</height>
+	  </image>
+      <horizontal_fov>63.09</horizontal_fov>
+      <clip>
+		<near>0.02</near>
+		<far>3</far>
+      </clip>
+      <updateRate>20</updateRate>
+      <baseline>0.1</baseline>
+      <controller:gazebo_ros_openni_kinect name="webcam_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>20</updateRate>
+        <robotNamespace>/</robotNamespace>
+        <imageTopicName>/webcam/image_raw</imageTopicName>
+        <pointCloudTopicName>/webcam/depth/points</pointCloudTopicName>     
+        <cameraInfoTopicName>/webcam/camera_info</cameraInfoTopicName>
+        <frameName>e_webcam_optica_link</frameName>
+        <distortion_k1>0.0</distortion_k1>
+        <distortion_k2>0.0</distortion_k2>
+        <distortion_k3>0.0</distortion_k3>
+        <distortion_t1>0.0</distortion_t1>
+        <distortion_t2>0.0</distortion_t2>
+      </controller:gazebo_ros_openni_kinect>
+    </sensor:camera>
+  </gazebo-->
+  
+</xacro:macro>
+
+</robot>

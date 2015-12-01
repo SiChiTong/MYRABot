@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<robot name="cereales">
+
+<link name="world" />
+
+<joint name="cereales" type="floating">
+  <parent link="world"/>
+  <child link="cereales_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</joint>
+
+<link name="cereales_link">
+  <visual>
+    <geometry>
+      <box size="0.13 0.06 0.19" />   
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.095" />
+    <material name="yellow">
+      <color rgba="0 1 1 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.095" />
+    <geometry>
+      <box size="0.13 0.06 0.19" />   
+    </geometry>
+  </collision>
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 0.0995" />
+    <mass value="0.01" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>  
+  </inertial>
+</link>
+
+<gazebo reference="cereales_link">
+  <material>objetos_fer/Grahams</material>
+  <mu1>0.9</mu1>
+  <mu2>0.9</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo>
+
+</robot>

@@ -1,0 +1,4 @@
+# test case for having multiple return values
+int32 a
+---
+int32 b

@@ -1,0 +1,10 @@
+controller_list:
+  - name: fake_brazo_controller
+    joints:
+      - base_brazo
+      - arti1
+      - arti2
+      - arti3
+  - name: fake_pinza_controller
+    joints:
+      - pinza

@@ -1,0 +1,93 @@
+<launch>
+
+  <!--param name="/use_sim_time" value="true" />
+
+  <node name="gazebo" pkg="gazebo" type="gazebo" args="-u $(find turtlebot_gazebo)/worlds/empty.world" respawn="false" output="screen"/>
+  <node name="gazebo_gui" pkg="gazebo" type="gui" /-->
+  
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="world_name" value="$(find turtlebot_gazebo)/worlds/empty.world"/>
+  </include>  
+  
+
+  
+  <!-- send spring_transmission.urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find myrabot_robot_model)/urdf/myrabot_brazo_real_switches.urdf.xacro'" />
+  
+  <param name="panel" command="$(find xacro)/xacro.py '$(find myrabot_objects_models)/urdf/panel_interruptores.xacro'" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_myrabot" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -Y 3.14 -model MYRAbot" respawn="false" output="screen" />
+  
+  
+  <!-- Load models table and cans -->
+  <!--node name="spawn_mesa" pkg="gazebo_ros" type="spawn_model" args="-file $(find myrabot_objects_models)/urdf/mesa.urdf -urdf -x 0.545 -y 0 -z 0 -Y -1.57 -model mesa" respawn="false" output="screen" /-->    
+  
+  <!--node name="spawn_lata_coca_cola" pkg="gazebo_ros" type="spawn_model" args="-file $(find myrabot_objects_models)/urdf/lata_coca_cola.urdf -urdf -x 0.28 -y -0.18 -z 0.74 -Y -1.57 -model lata_Coca_Cola" respawn="false" output="screen" /-->  
+
+  <!--node name="spawn_lata_amstel" pkg="gazebo_ros" type="spawn_model" args="-file $(find myrabot_objects_models)/urdf/lata_amstel.urdf -urdf -x 0.28 -y 0.0 -z 0.74 -Y -1.57 -model lata_Amstel" respawn="false" output="screen" /-->    
+
+  <node name="panel_interruptores" pkg="gazebo_ros" type="spawn_model" args="-urdf -param panel -x -0.4 -Y 1.57 -model Panel" respawn="false" output="screen" />
+  
+<group ns="/brazo">
+
+  <rosparam file="$(find myrabot_arm_model)/config/controller_gain.yaml" command="load"/>
+  
+  <rosparam file="$(find myrabot_arm_model)/config/controller.yaml" command="load"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" args="base_pos_controller arti1_pos_controller arti2_pos_controller arti3_pos_controller pinza_pos_controller joint_state_controller" respawn="false" output="screen" />
+
+</group>
+  
+  <node name="modelo_brazo" pkg="myrabot_arm_model" type="modelo_brazo" />
+  
+  <node name="remap_joint_states" pkg="myrabot_robot_model" type="remap_joint_states" />
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+	
+	<remap from="joint_states" to="joint_states_myrabot" />
+	
+  </node>
+
+  <!-- The odometry estimator -->
+
+  <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+    <param name="freq" value="30.0"/>
+    <param name="sensor_timeout" value="1.0"/>
+    <param name="publish_tf" value="true"/>
+    <param name="odom_used" value="true"/>
+    <param name="imu_used" value="true"/>
+    <param name="vo_used" value="false"/>
+		<param name="output_frame" value="odom"/>
+  </node>
+
+  <!-- throttling -->
+  <node pkg="nodelet" type="nodelet" name="pointcloud_throttle" args="load pointcloud_to_laserscan/CloudThrottle openni_manager" respawn="true">
+    <param name="max_rate" value="20.0"/>
+    <remap from="cloud_in" to="/camera/depth/points"/>
+    <remap from="cloud_out" to="cloud_throttled"/>
+  </node>
+
+  <!-- Fake Laser -->
+  <node pkg="nodelet" type="nodelet" name="kinect_laser" args="load pointcloud_to_laserscan/CloudToScan openni_manager" respawn="true">
+    <param name="output_frame_id" value="/camera_depth_frame"/>
+    <!-- heights are in the (optical?) frame of the kinect -->
+    <param name="min_height" value="-0.15"/>
+    <param name="max_height" value="0.15"/>
+    <remap from="cloud" to="/cloud_throttled"/>
+  </node>
+
+  <!-- Fake Laser (narrow one, for localization -->
+  <node pkg="nodelet" type="nodelet" name="kinect_laser_narrow" args="load pointcloud_to_laserscan/CloudToScan openni_manager" respawn="true">
+    <param name="output_frame_id" value="/camera_depth_frame"/>
+    <!-- heights are in the (optical?) frame of the kinect -->
+    <param name="min_height" value="-0.025"/>
+    <param name="max_height" value="0.025"/>
+    <remap from="cloud" to="/cloud_throttled"/>
+    <remap from="scan" to="/narrow_scan"/>
+  </node>   
+  
+</launch>

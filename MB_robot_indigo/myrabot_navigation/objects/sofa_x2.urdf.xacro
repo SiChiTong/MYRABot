@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+
+<robot name="sofa" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="altura_respaldo" value="0.4" />	
+<xacro:property name="altura" value="0.35" />
+<xacro:property name="ancho" value="0.8" />
+<xacro:property name="largo" value="1.6" />
+
+<link name="world" />
+
+<joint name="sofa" type="floating">
+  <parent link="world"/>
+  <child link="sofa_link"/>
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</joint>
+
+<link name="sofa_link">
+  <visual>
+    <geometry>
+      <box size="${largo} ${ancho} ${altura}" /> 
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+      <material name="Grey">
+		<color rgba="0.7 0.7 0.7 1" />
+    </material>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <geometry>
+      <box size="${largo} ${ancho} ${altura}" />  
+    </geometry>
+  </collision>
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <mass value="10" />
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>  
+  </inertial>
+</link>
+
+<joint name="respaldo" type="fixed">
+  <parent link="sofa_link"/>
+  <child link="respaldo_link"/>
+  <origin xyz="0 ${(ancho/2)-(0.3/2)} ${altura}" rpy="0 0 0" />
+</joint>
+
+<link name="respaldo_link">
+  <visual>
+    <geometry>
+      <box size="${largo} 0.3 ${altura_respaldo}" /> 
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 ${altura_respaldo/2}" />
+      <material name="Grey" />
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 ${altura_respaldo/2}" />
+    <geometry>
+      <box size="${largo} 0.3 ${altura_respaldo}" /> 
+    </geometry>
+  </collision>
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 ${altura_respaldo/2}" />
+    <mass value="1" />
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>  
+  </inertial>
+</link>
+
+<xacro:macro name="brazo" params="id refx">
+<joint name="brazo_${id}" type="fixed">
+  <parent link="sofa_link"/>
+  <child link="brazo_${id}_link"/>
+  <origin xyz="${refx*((largo/2)-(0.2/2))} -${0.1/2} ${altura}" rpy="0 0 0" />
+</joint>
+
+<link name="brazo_${id}_link">
+  <visual>
+    <geometry>
+      <box size="0.2 ${ancho-0.1} 0.2" />    
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 ${0.2/2}" />
+      <material name="Grey" />
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 ${0.2/2}" />
+    <geometry>
+      <box size="0.2 ${ancho-0.1} 0.2" />  
+    </geometry>
+  </collision>
+  <inertial>
+    <origin rpy="0 0 0" xyz="0 0 ${altura/2}" />
+    <mass value="1" />
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>  
+  </inertial>
+</link>
+</xacro:macro>
+
+<xacro:brazo id="1" refx="1" />
+<xacro:brazo id="2" refx="-1" />
+
+
+<gazebo reference="sofa_link">
+  <material>Gazebo/Grey</material>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo>
+
+<gazebo reference="respaldo_link">
+  <material>Gazebo/Grey</material>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo>
+
+<xacro:macro name="gazebo_brazo" params="id">
+<gazebo reference="brazo_${id}_link">
+  <material>Gazebo/Grey</material>
+  <mu1>1</mu1>
+  <mu2>1</mu2>
+  <selfCollide>true</selfCollide>
+  <turnGravityOff>false</turnGravityOff>  
+</gazebo>
+</xacro:macro>
+
+<xacro:gazebo_brazo id="1"/>
+<xacro:gazebo_brazo id="2"/>
+
+</robot>

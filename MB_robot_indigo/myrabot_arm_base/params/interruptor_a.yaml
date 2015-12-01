@@ -1,0 +1,14 @@
+
+id: 8
+
+posicion_on_x: 0
+posicion_on_y: -50
+posicion_on_z: -10
+
+posicion_off_x: 0
+posicion_off_x: -70
+posicion_off_z: -10
+
+posicion_luz_x: -100
+posicion_luz_y: -60
+posicion_luz_z: 0

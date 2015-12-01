@@ -1,0 +1,25 @@
+<launch>
+	<node name="bica" pkg="bica" type="bica" output="screen">
+		 <param name="ipcamera" type="bool" value="true"/>
+		 <param name="ipcameragui" type="bool" value="false"/>
+		 <param name="yellow_hmin" type="int" value="61"/>
+		 <param name="yellow_hmax" type="int" value="106"/>
+		 <param name="yellow_smin" type="int" value="107"/>
+		 <param name="yellow_smax" type="int" value="255"/>
+		 <param name="white_hmin" type="int" value="0"/>
+		 <param name="white_hmax" type="int" value="360"/>
+		 <param name="white_smin" type="int" value="0"/>
+		 <param name="white_smax" type="int" value="46"/>
+                 <param name="init_component" value="GamePlanner"/>
+	</node> 
+	
+  	<include file="$(find myrabot_bringup)/launch/kinect.launch"/> 
+  	
+  	<include file="$(find audio_capture)/launch/capture.launch"/> 
+
+  	<include file="$(find myrabot_navigation)/launch/usar_mapa.launch"/> 
+
+        <node pkg="rosbag" type="record" name="record" output="screen" args="-o /home/fran/Desktop/Prefix_name+date.bag /audio /roah_rsbb/visitor /roah_rsbb/benchmark/state /roah_rsbb/devices/bell /roah_rsbb/devices/state /ipcamera_image  "> 
+        </node> 
+
+</launch>

@@ -1,0 +1,27 @@
+<launch>
+<param name="/camera/driver/data_skip" value="10" />
+
+  <include file="$(find myrabot_bringup)/launch/myrabot_xtion_switches.launch" />
+
+  <!--node name="serial_node" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
+  
+  <node name="joint_states_brazo" pkg="myrabot_arm_base" type="joint_states_brazo" /-->
+  
+  <include file="$(find find_object_2d)/launch/find_object_3d.launch" />
+  
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_1.yaml" ns="interruptor_1" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_2.yaml" ns="interruptor_2" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_3.yaml" ns="interruptor_3" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_4.yaml" ns="interruptor_4" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_5.yaml" ns="interruptor_5" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_6.yaml" ns="interruptor_6" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_7.yaml" ns="interruptor_7" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_8.yaml" ns="interruptor_8" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_9.yaml" ns="interruptor_9" />
+  <rosparam command="load" file="$(find myrabot_arm_base)/params/interruptor_10.yaml" ns="interruptor_10" />
+  
+  <node name="interruptores" pkg="myrabot_arm_base" type="interruptores" output="screen" args="interruptor_1 interruptor_2 interruptor_3 interruptor_4 interruptor_5 interruptor_6 interruptor_7 interruptor_8 interruptor_9 interruptor_10" />
+
+  <node pkg="rosbag" type="record" name="record" output="screen" args="-o /home/fran/Desktop/WatermelonFBM2.bag /notification /target_position /effector_position /xtion/rgb/image_rect_color /xtion/depth_registered/image_raw"/> 
+
+</launch>

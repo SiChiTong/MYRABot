@@ -1,0 +1,19 @@
+<package>
+  <description brief="myrabot_navigation">
+
+     myrabot_navigation
+
+  </description>
+  <author>FeR</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/myrabot_navigation</url>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="tf"/>
+  <depend package="roscpp"/>
+
+</package>
+
+

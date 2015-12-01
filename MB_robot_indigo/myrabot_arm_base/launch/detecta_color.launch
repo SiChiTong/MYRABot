@@ -1,0 +1,7 @@
+<launch>
+  
+  <include file="$(find myrabot_bringup)/launch/xtion.launch" />  
+  
+  <node name="detecta_color" pkg="myrabot_arm_base" type="detecta_color" output="screen" />
+
+</launch>
